@@ -33,21 +33,21 @@ namespace Acr.UserDialogs
             switch (choice)
             {
                 case DialogChoice.Negative:
-                    this.Negative.Text = text;
+                    this.Negative.Text = text ?? DefaultNegative.Text;
                     this.Negative.IsVisible = true;
                     break;
 
                 case DialogChoice.Neutral:
-                    this.Neutral.Text = text;
+                    this.Neutral.Text = text ?? DefaultNeutral.Text;
                     this.Neutral.IsVisible = true;
                     break;
 
                 case DialogChoice.Positive:
-                    this.Neutral.Text = text;
-                    this.Neutral.IsVisible = true;
+                    this.Positive.Text = text ?? DefaultPositive.Text;
+                    this.Positive.IsVisible = true;
                     break;
             }
-            return this;            
+            return this;
         }
 
 

@@ -144,8 +144,8 @@ namespace Acr.UserDialogs
         public virtual IDisposable Confirm(string message, Action<bool> onAction, string title, string okText, string cancelText)
         {
             return this.Alert(new AlertConfig()
-                .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
-                .SetText(DialogChoice.Neutral, cancelText ?? AlertConfig.DefaultNeutral.Text)
+                .SetText(DialogChoice.Positive, okText)
+                .SetText(DialogChoice.Neutral, cancelText)
                 .SetAction(x => onAction(x == DialogChoice.Positive))
              );
         }
