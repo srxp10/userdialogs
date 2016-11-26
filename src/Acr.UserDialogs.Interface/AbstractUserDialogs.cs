@@ -144,8 +144,10 @@ namespace Acr.UserDialogs
         public virtual IDisposable Confirm(string message, Action<bool> onAction, string title, string okText, string cancelText)
         {
             return this.Alert(new AlertConfig()
-                .SetText(DialogChoice.Positive, okText)
-                .SetText(DialogChoice.Neutral, cancelText)
+                .SetTitle(title)
+                .SetMessage(message)
+                .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
+                .SetText(DialogChoice.Neutral, cancelText ?? AlertConfig.DefaultNeutral.Text)
                 .SetAction(x => onAction(x == DialogChoice.Positive))
              );
         }
@@ -154,9 +156,11 @@ namespace Acr.UserDialogs
         public virtual async Task<bool> ConfirmAsync(string message, string title, string okText, string cancelText, CancellationToken? cancelToken = null)
         {
             var result = await this.AlertAsync(new AlertConfig()
-               .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
-               .SetText(DialogChoice.Neutral, cancelText ?? AlertConfig.DefaultNeutral.Text), 
-               cancelToken
+                .SetTitle(title)
+                .SetMessage(message)
+                .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
+                .SetText(DialogChoice.Neutral, cancelText ?? AlertConfig.DefaultNeutral.Text), 
+                cancelToken
             );
 
             return result == DialogChoice.Positive;
