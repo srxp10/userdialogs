@@ -32,16 +32,18 @@ namespace Acr.UserDialogs
             return this.Present(() =>
             {
                 var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-                if (config.BackgroundColor != null)
-                    alert.View.BackgroundColor = config.BackgroundColor.Value.ToNative();
+                //if (config.BackgroundColor != null)
+                //    alert.View.BackgroundColor = config.BackgroundColor.Value.ToNative();
 
-                if (config.Negative.IsVisible)
+                if (config.Negative != null)
                     alert.AddAction(UIAlertAction.Create(config.Negative.Text, UIAlertActionStyle.Destructive, x => config.OnAction?.Invoke(DialogChoice.Negative)));
 
-                if (config.Neutral.IsVisible)
+                if (config.Neutral != null)
                     alert.AddAction(UIAlertAction.Create(config.Neutral.Text, UIAlertActionStyle.Cancel, x => config.OnAction?.Invoke(DialogChoice.Neutral)));
 
-                alert.AddAction(UIAlertAction.Create(config.Positive.Text, UIAlertActionStyle.Default, x => config.OnAction?.Invoke(DialogChoice.Positive)));
+                if (config.Positive != null)
+                    alert.AddAction(UIAlertAction.Create(config.Positive.Text, UIAlertActionStyle.Default, x => config.OnAction?.Invoke(DialogChoice.Positive)));
+                
                 return alert;
             });
         }
@@ -101,11 +103,11 @@ namespace Acr.UserDialogs
                 UITextField txtPass = null;
 
                 var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-                if (config.BackgroundColor != null)
-                {
-                    dlg.View.BackgroundColor = config.BackgroundColor.Value.ToNative();
-                }
-                if (config.Negative.IsVisible)
+                //if (config.BackgroundColor != null)
+                //{
+                //    dlg.View.BackgroundColor = config.BackgroundColor.Value.ToNative();
+                //}
+                if (config.Negative != null)
                 {
                     dlg.AddAction(UIAlertAction.Create(
                         config.Negative.Text,
@@ -116,7 +118,7 @@ namespace Acr.UserDialogs
                         ))
                     ));
                 }
-                if (config.Neutral.IsVisible)
+                if (config.Neutral != null)
                 {
                     dlg.AddAction(UIAlertAction.Create(
                         config.Neutral.Text,
@@ -127,14 +129,17 @@ namespace Acr.UserDialogs
                         ))
                     ));
                 }
-                dlg.AddAction(UIAlertAction.Create(
-                    config.Positive.Text,
-                    UIAlertActionStyle.Default,
-                    x => config.OnAction?.Invoke(new DialogResult<Credentials>(
-                        DialogChoice.Positive,
-                        new Credentials(txtUser.Text, txtPass.Text)
-                    ))
-                ));
+                if (config.Positive != null)
+                {
+                    dlg.AddAction(UIAlertAction.Create(
+                        config.Positive.Text,
+                        UIAlertActionStyle.Default,
+                        x => config.OnAction?.Invoke(new DialogResult<Credentials>(
+                            DialogChoice.Positive,
+                            new Credentials(txtUser.Text, txtPass.Text)
+                        ))
+                    ));
+                }
                 dlg.AddTextField(x =>
                 {
                     txtUser = x;
@@ -159,26 +164,32 @@ namespace Acr.UserDialogs
                 var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
                 UITextField txt = null;
 
-                if (config.BackgroundColor != null)
-                {
-                    dlg.View.BackgroundColor = config.BackgroundColor.Value.ToNative();
-                }
-                if (config.Negative.IsVisible)
+                //if (config.BackgroundColor != null)
+                //{
+                //    dlg.View.BackgroundColor = config.BackgroundColor.Value.ToNative();
+                //}
+                if (config.Negative != null)
                 {
                     dlg.AddAction(UIAlertAction.Create(config.Negative.Text, UIAlertActionStyle.Destructive, x =>
                         config.OnAction?.Invoke(new DialogResult<string>(DialogChoice.Negative, txt.Text.Trim())
                     )));
                 }
-                if (config.Neutral.IsVisible)
+                if (config.Neutral != null)
                 {
                     dlg.AddAction(UIAlertAction.Create(config.Neutral.Text, UIAlertActionStyle.Cancel, x =>
                         config.OnAction?.Invoke(new DialogResult<string>(DialogChoice.Neutral, txt.Text.Trim())
                     )));
                 }
-                var btnOk = UIAlertAction.Create(config.Positive.Text, UIAlertActionStyle.Default, x =>
-                    config.OnAction?.Invoke(new DialogResult<string>(DialogChoice.Positive, txt.Text.Trim())
-                ));
-                dlg.AddAction(btnOk);
+                if (config.Positive != null)
+                {
+                    var btnOk = UIAlertAction.Create(config.Positive.Text, UIAlertActionStyle.Default, x =>
+                        config.OnAction?.Invoke(new DialogResult<string>(DialogChoice.Positive, txt.Text.Trim())
+                    ));
+                    dlg.AddAction(btnOk);
+                }
+                if (config.Positive == null && config.OnTextChanged != null)
+                    throw new ArgumentException("You cannot have a null positive button with OnTextChanged set");
+
                 dlg.AddTextField(x =>
                 {
                     txt = x;

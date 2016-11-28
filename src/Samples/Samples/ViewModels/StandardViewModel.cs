@@ -13,7 +13,7 @@ namespace Samples.ViewModels
 {
     public class StandardViewModel : AbstractViewModel
     {
-        public IList<CommandViewModel> Commands { get; } = new List<CommandViewModel>();
+        public IList<CommandViewModel> Commands { get; }
 
 
         public StandardViewModel(IUserDialogs dialogs) : base(dialogs)
@@ -34,6 +34,22 @@ namespace Samples.ViewModels
                             cancelToken: token
                         )
                     )
+                },
+                new CommandViewModel
+                {
+                    Text = "Alert - 3 Choice",
+                    Command = this.Create(async token =>
+                    {
+                        var result = await this.Dialogs.AlertAsync(new AlertConfig()
+                            .SetTitle("Three Choice Alert")
+                            .SetMessage("Choose your destiny")
+                            .SetText(DialogChoice.Positive, "Good")
+                            .SetText(DialogChoice.Neutral, "Bad")
+                            .SetText(DialogChoice.Negative, "Ugly"),
+                            token
+                        );
+                        this.Result("Alert Choice: " + result);
+                    })
                 },
                 new CommandViewModel
                 {

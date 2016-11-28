@@ -4,22 +4,25 @@ using System.Drawing;
 
 namespace Acr.UserDialogs
 {
-    public class AlertConfig : IAndroidStyleDialogConfig
+    public class AlertConfig : AbstractDialogConfig
     {
-        public static DialogButton DefaultPositive { get; } = new DialogButton(DialogChoice.Positive, "Ok", null, true);
-        public static DialogButton DefaultNeutral { get; } = new DialogButton(DialogChoice.Neutral, "Cancel", null, false);
-        public static DialogButton DefaultNegative { get; } = new DialogButton(DialogChoice.Negative, "Remove", null, false);
-        public static Color? DefaultBackgroundColor { get; set; }
+        public AlertConfig()
+        {
+            this.Positive = DefaultPositive?.Clone();
+            this.Neutral = DefaultNeutral?.Clone();
+            this.Negative = DefaultNegative?.Clone();
+            this.AndroidStyleId = DefaultAndroidStyleId;
+            this.IsCancellable = DefaultIsCancellable;
+        }
+
+
+        public static DialogButton DefaultPositive { get; set; } = new DialogButton("Ok");
+        public static DialogButton DefaultNeutral { get; set; } = new DialogButton("Cancel");
+        public static DialogButton DefaultNegative { get; set; }
+        public static bool DefaultIsCancellable { get; set; } = true;
+        //public static Color? DefaultBackgroundColor { get; set; }
         public static int? DefaultAndroidStyleId { get; set; }
         public Action<DialogChoice> OnAction { get; set; }
-
-        public Color? BackgroundColor { get; set; } = DefaultBackgroundColor;
-        public DialogButton Positive { get; } = new DialogButton(DialogChoice.Positive, DefaultPositive.Text, DefaultPositive.TextColor, DefaultPositive.IsVisible);
-        public DialogButton Neutral { get; } = new DialogButton(DialogChoice.Neutral, DefaultNeutral.Text, DefaultNeutral.TextColor, DefaultNeutral.IsVisible);
-        public DialogButton Negative { get; } = new DialogButton(DialogChoice.Negative, DefaultNegative.Text, DefaultNegative.TextColor, DefaultNegative.IsVisible);
-        public string Title { get; set; }
-        public string Message { get; set; }
-        public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
 
 
         public AlertConfig SetText(DialogChoice choice, string text = null)
@@ -28,17 +31,14 @@ namespace Acr.UserDialogs
             {
                 case DialogChoice.Negative:
                     this.Negative.Text = text ?? DefaultNegative.Text;
-                    this.Negative.IsVisible = true;
                     break;
 
                 case DialogChoice.Neutral:
                     this.Neutral.Text = text ?? DefaultNeutral.Text;
-                    this.Neutral.IsVisible = true;
                     break;
 
                 case DialogChoice.Positive:
                     this.Positive.Text = text ?? DefaultPositive.Text;
-                    this.Positive.IsVisible = true;
                     break;
             }
             return this;

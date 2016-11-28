@@ -41,6 +41,7 @@ Supported Platforms
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
             </group>
             <group targetFramework="Xamarin.iOS10">
+                <dependency id="BTProgressHUD" version="[1.2.0.3, 2)" />
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Acr.Support" version="[2.1.0, 3.0)" />
             </group>
@@ -57,6 +58,7 @@ Supported Platforms
         </dependencies>
         <releaseNotes>
 7.0.0
+This release does contain breaking changes!
 [feature] STYLING!!
 [feature] Ok/Cancel is gone, welcome Postive, Neutral, and Negative buttons for alert, login, and prompt
 [breaking] Confirm is now just a wrapper signature around alert
@@ -120,16 +122,6 @@ Supported Platforms
         <!-- ios -->
         <file src="..\src\Acr.UserDialogs.iOS\bin\iPhone\Release\Acr.UserDialogs.*" target="lib\Xamarin.iOS10" />
 
-        <!-- wp8 -->
-        <!--<file src="..\src\Acr.UserDialogs.WindowsPhone\bin\Release\Acr.UserDialogs.*" target="lib\wp8" />-->
-
-        <!-- wpa81 -->
-        <!--<file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.dll" target="lib\wpa81" />
-        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.pdb" target="lib\wpa81" />
-        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs\*.*" target="lib\wpa81\Acr.UserDialogs" />
-        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\wpa81" />
-        <file src="..\src\Acr.UserDialogs.WP81\bin\Release\Acr.UserDialogs.Interface.pdb" target="lib\wpa81" />-->
-
         <!-- uwp -->
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.dll" target="lib\uap10.0" />
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.pdb" target="lib\uap10.0" />
@@ -138,9 +130,6 @@ Supported Platforms
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs\*.*" target="lib\uap10.0\Acr.UserDialogs" />
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.Interface.dll" target="lib\uap10.0" />
         <file src="..\src\Acr.UserDialogs.Uwp\bin\Release\Acr.UserDialogs.Interface.pdb" target="lib\uap10.0" />
-
-        <!-- WPF -->
-        <!--<file src="..\src\Acr.UserDialogs.Wpf\bin\Release\Acr.UserDialogs.*" target="lib\net45" />-->
 
         <!-- tvOS -->
         <!--<file src="..\src\Acr.UserDialogs.tvOS\bin\Release\Acr.UserDialogs.*" target="lib\Xamarin.tvOS10" />-->
