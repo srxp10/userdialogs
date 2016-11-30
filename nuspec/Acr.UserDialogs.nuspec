@@ -64,6 +64,9 @@ This release does contain breaking changes!
 [breaking] Confirm is now just a wrapper signature around alert
 [fix][droid] ActionSheetAsync is fixed for dismiss
 
+6.3.2
+[fix][ios] OnTextChanged event hooks were not working properly
+
 6.3.1
 [fix][droid] NRE on OnTextChanged
 

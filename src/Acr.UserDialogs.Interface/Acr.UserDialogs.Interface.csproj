@@ -34,14 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="AbstractDialogConfig.cs" />
-=======
     <Compile Include="..\Acr.UserDialogs.Shared\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AbstractStandardDialogResult.cs" />
->>>>>>> master
     <Compile Include="AbstractUserDialogs.cs" />
     <Compile Include="ActionSheetConfig.cs" />
     <Compile Include="ActionSheetOption.cs" />
@@ -49,13 +45,7 @@
     <Compile Include="ConfirmConfig.cs" />
     <Compile Include="Credentials.cs" />
     <Compile Include="DisposableAction.cs" />
-<<<<<<< HEAD
     <Compile Include="IDialogConfig.cs" />
-=======
-    <Compile Include="IAndroidThemeDialog.cs" />
-    <Compile Include="IStandardDialogConfig.cs" />
-    <Compile Include="IStandardDialogResult.cs" />
->>>>>>> master
     <Compile Include="PromptTextChangedArgs.cs" />
     <Compile Include="TimePromptConfig.cs" />
     <Compile Include="DatePromptConfig.cs" />
