@@ -31,18 +31,23 @@ namespace Acr.UserDialogs.Builders
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
-                .SetView(txt)
-                .SetPositiveButton(config.Positive.Text, (s, a) =>
+                .SetView(txt);
+
+            if (config.Positive != null)
+            {
+                builder.SetPositiveButton(config.Positive.Text, (s, a) =>
                     config.OnAction(new DialogResult<string>(DialogChoice.Positive, txt.Text.Trim()))
                 );
+            }
 
-            if (config.Neutral.IsVisible)
+            if (config.Neutral != null)
             {
                 builder.SetNeutralButton(config.Neutral.Text, (s, a) =>
                     config.OnAction(new DialogResult<string>(DialogChoice.Neutral, txt.Text.Trim()))
                 );
             }
-            if (config.Negative.IsVisible)
+
+            if (config.Negative != null)
             {
                 builder.SetNegativeButton(config.Negative.Text, (s, a) =>
                     config.OnAction(new DialogResult<string>(DialogChoice.Negative, txt.Text.Trim()))
@@ -71,18 +76,22 @@ namespace Acr.UserDialogs.Builders
                 .SetCancelable(false)
                 .SetMessage(config.Message)
                 .SetTitle(config.Title)
-                .SetView(txt)
-                .SetPositiveButton(config.Positive.Text, (s, a) =>
+                .SetView(txt);
+
+            if (config.Positive != null)
+            {
+                builder.SetPositiveButton(config.Positive.Text, (s, a) =>
                     config.OnAction(new DialogResult<string>(DialogChoice.Positive, txt.Text.Trim()))
                 );
+            }
 
-            if (config.Neutral.IsVisible)
+            if (config.Neutral != null)
             {
                 builder.SetNeutralButton(config.Neutral.Text, (s, a) =>
                     config.OnAction(new DialogResult<string>(DialogChoice.Neutral, txt.Text.Trim()))
                 );
             }
-            if (config.Negative.IsVisible)
+            if (config.Negative != null)
             {
                 builder.SetNegativeButton(config.Negative.Text, (s, a) =>
                     config.OnAction(new DialogResult<string>(DialogChoice.Negative, txt.Text.Trim()))

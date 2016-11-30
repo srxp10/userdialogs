@@ -22,10 +22,10 @@ namespace Acr.UserDialogs
         public override IDisposable Alert(AlertConfig config)
         {
             var dialog = new MessageDialog(config.Message, config.Title ?? String.Empty);
-            if (config.Negative.IsVisible)
+            if (config.Negative != null)
                 dialog.Commands.Add(new UICommand(config.Negative.Text, x => config.OnAction?.Invoke(DialogChoice.Negative)));
 
-            if (config.Neutral.IsVisible)
+            if (config.Neutral != null)
                 dialog.Commands.Add(new UICommand(config.Neutral.Text, x => config.OnAction?.Invoke(DialogChoice.Neutral)));
 
             dialog.Commands.Add(new UICommand(config.Positive.Text, x => config.OnAction?.Invoke(DialogChoice.Positive)));
@@ -89,7 +89,7 @@ namespace Acr.UserDialogs
                 picker.DatePicker.MaxDate = config.MaximumDate.Value;
 
             var popup = this.CreatePopup(picker);
-            if (!config.Neutral.IsVisible)
+            if (config.Neutral != null)
             {
                 picker.CancelButton.Visibility = Visibility.Collapsed;
             }
@@ -130,7 +130,7 @@ namespace Acr.UserDialogs
 
             var popup = this.CreatePopup(picker);
             // TODO: third option
-            if (!config.Neutral.IsVisible)
+            if (config.Neutral != null)
             {
                 picker.CancelButton.Visibility = Visibility.Collapsed;
             }
