@@ -99,13 +99,13 @@ namespace Samples.ViewModels
                         {
                             //LoginValue = "LastUserName",
                             Message = "DANGER",
-                            //PositiveText = "DO IT",
-                            //NeutralText = "STOP",
-                            //NegativeText = "OH HELL NO",
+                            OkText = "DO IT",
+                            CancelText = "GET OUT",
                             LoginPlaceholder = "Username Placeholder",
                             PasswordPlaceholder = "Password Placeholder"
                         }, token);
-                        this.Result($"Login: {r.Choice} - User Name: {r.Value.UserName} - Password: {r.Value.Password}");
+                        var status = r.Ok ? "Success" : "Cancelled";
+                        this.Result($"Login {status} - User Name: {r.LoginText} - Password: {r.Password}");
                     })
                 },
                 new CommandViewModel
@@ -136,7 +136,7 @@ namespace Samples.ViewModels
                             .SetPlaceholder("Maximum Text Length (10)")
                             .SetMaxLength(10), token);
 
-                        this.Result($"Result - {result.Choice} - {result.Value}");
+                        this.Result($"Result - {result.Ok} - {result.Text}");
                     })
                 },
                 new CommandViewModel
@@ -147,9 +147,10 @@ namespace Samples.ViewModels
                         var result = await this.Dialogs.PromptAsync(new PromptConfig
                         {
                             Title = "PromptWithTextAndNoCancel",
-                            Text = "Existing Text"
+                            Text = "Existing Text",
+                            IsCancellable = false
                         }, token);
-                        this.Result($"Result - {result.Choice} - {result.Value}");
+                        this.Result($"Result - {result.Ok} - {result.Text}");
                     })
                 },
                 new CommandViewModel
@@ -163,7 +164,7 @@ namespace Samples.ViewModels
                             Message = "You must type the word \"yes\" to enable OK button",
                             OnTextChanged = args => args.IsValid = args.Value.Equals("yes", StringComparison.CurrentCultureIgnoreCase)
                         });
-                        this.Result($"Result - {result.Choice} - {result.Value}");
+                        this.Result($"Result - {result.Ok} - {result.Text}");
                     })
                 },
                 new CommandViewModel
@@ -177,7 +178,7 @@ namespace Samples.ViewModels
                             Message = "Type in lower case and it will convert to upper case",
                             OnTextChanged = args => args.Value = args.Value.ToUpper()
                         });
-                        this.Result($"Result - {result.Choice} - {result.Value}");
+                        this.Result($"Result - {result.Ok} - {result.Text}");
                     })
                 },
                 new CommandViewModel
@@ -187,10 +188,11 @@ namespace Samples.ViewModels
                     {
                         var result = await this.Dialogs.DatePromptAsync(new DatePromptConfig
                         {
+                            IsCancellable = true,
                             MinimumDate = DateTime.Now.AddDays(-3),
                             MaximumDate = DateTime.Now.AddDays(1)
                         }, token);
-                        this.Result($"Date Prompt: {result.Choice} - Value: {result.Value}");
+                        this.Result($"Date Prompt: {result.Ok} - Value: {result.SelectedDate}");
                     })
                 },
                 new CommandViewModel
@@ -198,8 +200,11 @@ namespace Samples.ViewModels
                     Text = "Time",
                     Command = this.Create(async token =>
                     {
-                        var result = await this.Dialogs.TimePromptAsync(new TimePromptConfig(), token);
-                        this.Result($"Time Prompt: {result.Choice} - Value: {result.Value}");
+                        var result = await this.Dialogs.TimePromptAsync(new TimePromptConfig
+                        {
+                            IsCancellable = true
+                        }, token);
+                        this.Result($"Time Prompt: {result.Ok} - Value: {result.SelectedTime}");
                     })
                 },
                 new CommandViewModel
@@ -207,9 +212,10 @@ namespace Samples.ViewModels
                     Text = "Time (24 hour clock)",
                     Command = this.Create (async token => {
                         var result = await this.Dialogs.TimePromptAsync(new TimePromptConfig {
+                            IsCancellable = true,
                             Use24HourClock = true
                         }, token);
-                        this.Result ($"Time Prompt: {result.Choice} - Value: {result.Value}");
+                        this.Result ($"Time Prompt: {result.Ok} - Value: {result.SelectedTime}");
                     })
                 }
             };
@@ -305,7 +311,9 @@ namespace Samples.ViewModels
             this.cancelSrc?.CancelAfter(TimeSpan.FromSeconds(3));
             var r = await this.Dialogs.PromptAsync(msg, inputType: inputType, cancelToken: this.cancelSrc?.Token);
             await Task.Delay(500);
-            this.Result($"Prompt: {r.Choice} - Value: {r.Value}");
+            this.Result(r.Ok
+                ? "OK " + r.Text
+                : "Prompt Cancelled");
         }
     }
 }
