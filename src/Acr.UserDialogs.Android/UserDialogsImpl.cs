@@ -26,6 +26,11 @@ namespace Acr.UserDialogs
         }
 
 
+        public override IAlertDialog CreateDialog()
+        {
+            throw new NotImplementedException();
+        }
+
         #region Alert Dialogs
 
         public override IDisposable Alert(AlertConfig config)

@@ -11,6 +11,7 @@ namespace Acr.UserDialogs
     {
         const string NO_ONACTION = "OnAction should not be set as async will not use it";
 
+        public abstract IAlertDialog CreateDialog();
         public abstract IDisposable Alert(AlertConfig config);
         public abstract IDisposable ActionSheet(ActionSheetConfig config);
         public abstract IDisposable DatePrompt(DatePromptConfig config);
@@ -32,13 +33,13 @@ namespace Acr.UserDialogs
                 cfg.Title = title;
 
             // you must have a cancel option for actionsheetasync
-            cfg.SetCancel(cancel, () => tcs.TrySetResult(cancel));
+            //cfg.SetCancel(cancel, () => tcs.TrySetResult(cancel));
 
-            if (destructive != null)
-                cfg.SetDestructive(destructive, () => tcs.TrySetResult(destructive));
+            //if (destructive != null)
+            //    cfg.SetDestructive(destructive, () => tcs.TrySetResult(destructive));
 
-            foreach (var btn in buttons)
-                cfg.Add(btn, () => tcs.TrySetResult(btn));
+            //foreach (var btn in buttons)
+            //    cfg.Add(btn, () => tcs.TrySetResult(btn));
 
             var disp = this.ActionSheet(cfg);
             using (cancelToken?.Register(() => Cancel(disp, tcs)))
@@ -50,11 +51,12 @@ namespace Acr.UserDialogs
 
         public virtual IDisposable Alert(string message, string title, string okText)
         {
-            return this.Alert(new AlertConfig()
-                .SetMessage(message)
-                .SetTitle(title)
-                .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
-            );
+            //return this.Alert(new AlertConfig()
+            //    .SetMessage(message)
+            //    .SetTitle(title)
+            //    .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
+            //);
+            return null;
         }
 
 
@@ -132,40 +134,54 @@ namespace Acr.UserDialogs
 
         public virtual Task<DialogChoice> AlertAsync(string message, string title, string okText, CancellationToken? cancelToken = null)
         {
-            return this.AlertAsync(new AlertConfig()
-                .SetMessage(message)
-                .SetTitle(title)
-                .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text),
-                cancelToken
-            );
+            //return this.AlertAsync(new AlertConfig()
+            //    .SetMessage(message)
+            //    .SetTitle(title)
+            //    .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text),
+            //    cancelToken
+            //);
+            return null;
+        }
+
+
+        public virtual IDisposable Confirm(ConfirmConfig config)
+        {
+            return null;
         }
 
 
         public virtual IDisposable Confirm(string message, Action<bool> onAction, string title, string okText, string cancelText)
         {
-            return this.Alert(new AlertConfig()
-                .SetTitle(title)
-                .SetMessage(message)
-                .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
-                .SetText(DialogChoice.Neutral, cancelText ?? AlertConfig.DefaultNeutral.Text)
-                .SetAction(x => onAction(x == DialogChoice.Positive))
-             );
+            //return this.Alert(new AlertConfig()
+            //    .SetTitle(title)
+            //    .SetMessage(message)
+            //    .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
+            //    .SetText(DialogChoice.Neutral, cancelText ?? AlertConfig.DefaultNeutral.Text)
+            //    .SetAction(x => onAction(x == DialogChoice.Positive))
+            // );
+            return null;
         }
 
 
         public virtual async Task<bool> ConfirmAsync(string message, string title, string okText, string cancelText, CancellationToken? cancelToken = null)
         {
-            var result = await this.AlertAsync(new AlertConfig()
-                .SetTitle(title)
-                .SetMessage(message)
-                .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
-                .SetText(DialogChoice.Neutral, cancelText ?? AlertConfig.DefaultNeutral.Text), 
-                cancelToken
-            );
+            //var result = await this.AlertAsync(new AlertConfig()
+            //    .SetTitle(title)
+            //    .SetMessage(message)
+            //    .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
+            //    .SetText(DialogChoice.Neutral, cancelText ?? AlertConfig.DefaultNeutral.Text),
+            //    cancelToken
+            //);
 
-            return result == DialogChoice.Positive;
+            //return result == DialogChoice.Positive;
+            return false;
         }
 
+
+        public virtual async Task<bool> ConfirmAsync(ConfirmConfig config, CancellationToken? cancelToken)
+        {
+            return false;
+        }
 
         public virtual async Task<DialogResult<DateTime>> DatePromptAsync(DatePromptConfig config, CancellationToken? cancelToken = null)
         {
@@ -245,7 +261,7 @@ namespace Acr.UserDialogs
         {
             return this.LoginAsync(new LoginConfig
             {
-                Title = title ?? LoginConfig.DefaultTitle,
+                //Title = title ?? LoginConfig.DefaultTitle,
                 Message = message
             }, cancelToken);
         }
@@ -267,17 +283,18 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual Task<DialogResult<string>> PromptAsync(string message, string title, string okText, string cancelText, string placeholder, InputType inputType, CancellationToken? cancelToken = null)
+        public virtual Task<DialogResult<string>> PromptAsync(string message, string title, string okText, string cancelText, string placeholder, KeyboardType inputType, CancellationToken? cancelToken = null)
         {
-            return this.PromptAsync(new PromptConfig()
-                .SetMessage(message)
-                .SetTitle(title)
-                .SetText(DialogChoice.Neutral, cancelText ?? PromptConfig.DefaultNeutral.Text)
-                .SetText(DialogChoice.Positive, okText ?? PromptConfig.DefaultPositive.Text)
-                .SetPlaceholder(placeholder)
-                .SetInputType(inputType),
-                cancelToken
-            );
+            //return this.PromptAsync(new PromptConfig()
+            //    .SetMessage(message)
+            //    .SetTitle(title)
+            //    .SetText(DialogChoice.Neutral, cancelText ?? PromptConfig.DefaultNeutral.Text)
+            //    .SetText(DialogChoice.Positive, okText ?? PromptConfig.DefaultPositive.Text)
+            //    .SetPlaceholder(placeholder)
+            //    .SetInputType(inputType),
+            //    cancelToken
+            //);
+            return null;
         }
 
 

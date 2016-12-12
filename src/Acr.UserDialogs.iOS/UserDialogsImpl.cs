@@ -381,39 +381,39 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual void SetInputType(UITextField txt, InputType inputType)
+        protected virtual void SetInputType(UITextField txt, KeyboardType inputType)
         {
             switch (inputType)
             {
-                case InputType.DecimalNumber:
+                case KeyboardType.DecimalNumber:
                     txt.KeyboardType = UIKeyboardType.DecimalPad;
                     break;
 
-                case InputType.Email:
+                case KeyboardType.Email:
                     txt.KeyboardType = UIKeyboardType.EmailAddress;
                     break;
 
-                case InputType.Name:
+                case KeyboardType.Name:
                     break;
 
-                case InputType.Number:
+                case KeyboardType.Number:
                     txt.KeyboardType = UIKeyboardType.NumberPad;
                     break;
 
-                case InputType.NumericPassword:
+                case KeyboardType.NumericPassword:
                     txt.SecureTextEntry = true;
                     txt.KeyboardType = UIKeyboardType.NumberPad;
                     break;
 
-                case InputType.Password:
+                case KeyboardType.Password:
                     txt.SecureTextEntry = true;
                     break;
 
-                case InputType.Phone:
+                case KeyboardType.Phone:
                     txt.KeyboardType = UIKeyboardType.PhonePad;
                     break;
 
-                case InputType.Url:
+                case KeyboardType.Url:
                     txt.KeyboardType = UIKeyboardType.Url;
                     break;
             }

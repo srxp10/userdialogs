@@ -1,13 +1,15 @@
-﻿namespace Acr.UserDialogs {
-    public enum InputType {
+﻿namespace Acr.UserDialogs
+{
+    public enum KeyboardType
+    {
         Default,
         Email,
-		Name,
+        Name,
         Number,
         DecimalNumber,
         Password,
         NumericPassword,
-		Phone,
-		Url
+        Phone,
+        Url
     }
 }

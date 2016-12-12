@@ -113,15 +113,15 @@ namespace Samples.ViewModels
                     Text = "Prompt",
                     Command = new Command(() => this.Dialogs.ActionSheet(new ActionSheetConfig()
                         .SetTitle("Choose Type")
-                        .Add("Default", () => this.PromptCommand(InputType.Default))
-                        .Add("E-Mail", () => this.PromptCommand(InputType.Email))
-                        .Add("Name", () => this.PromptCommand(InputType.Name))
-                        .Add("Number", () => this.PromptCommand(InputType.Number))
-                        .Add("Number with Decimal", () => this.PromptCommand(InputType.DecimalNumber))
-                        .Add("Password", () => this.PromptCommand(InputType.Password))
-                        .Add("Numeric Password (PIN)", () => this.PromptCommand(InputType.NumericPassword))
-                        .Add("Phone", () => this.PromptCommand(InputType.Phone))
-                        .Add("Url", () => this.PromptCommand(InputType.Url))
+                        .Add("Default", () => this.PromptCommand(KeyboardType.Default))
+                        .Add("E-Mail", () => this.PromptCommand(KeyboardType.Email))
+                        .Add("Name", () => this.PromptCommand(KeyboardType.Name))
+                        .Add("Number", () => this.PromptCommand(KeyboardType.Number))
+                        .Add("Number with Decimal", () => this.PromptCommand(KeyboardType.DecimalNumber))
+                        .Add("Password", () => this.PromptCommand(KeyboardType.Password))
+                        .Add("Numeric Password (PIN)", () => this.PromptCommand(KeyboardType.NumericPassword))
+                        .Add("Phone", () => this.PromptCommand(KeyboardType.Phone))
+                        .Add("Url", () => this.PromptCommand(KeyboardType.Url))
                         .SetCancel()
                     ))
                 },
@@ -305,7 +305,7 @@ namespace Samples.ViewModels
         }
 
 
-        async Task PromptCommand(InputType inputType)
+        async Task PromptCommand(KeyboardType inputType)
         {
             var msg = $"Enter a {inputType.ToString().ToUpper()} value";
             this.cancelSrc?.CancelAfter(TimeSpan.FromSeconds(3));

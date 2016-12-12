@@ -34,32 +34,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AbstractDialogConfig.cs" />
     <Compile Include="..\Acr.UserDialogs.Shared\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AbstractDialogConfig.cs" />
     <Compile Include="AbstractUserDialogs.cs" />
     <Compile Include="ActionSheetConfig.cs" />
-    <Compile Include="ActionSheetOption.cs" />
     <Compile Include="AlertConfig.cs" />
     <Compile Include="ConfirmConfig.cs" />
     <Compile Include="Credentials.cs" />
+    <Compile Include="DialogChoice.cs" />
+    <Compile Include="DialogResult.cs" />
     <Compile Include="DisposableAction.cs" />
+    <Compile Include="IDialog.cs" />
+    <Compile Include="IAction.cs" />
     <Compile Include="IDialogConfig.cs" />
+    <Compile Include="ITextEntry.cs" />
     <Compile Include="PromptTextChangedArgs.cs" />
     <Compile Include="TimePromptConfig.cs" />
     <Compile Include="DatePromptConfig.cs" />
-    <Compile Include="DatePromptResult.cs" />
-    <Compile Include="TimePromptResult.cs" />
-    <Compile Include="InputType.cs" />
+    <Compile Include="KeyboardType.cs" />
     <Compile Include="IProgressDialog.cs" />
     <Compile Include="IUserDialogs.cs" />
     <Compile Include="LoginConfig.cs" />
-    <Compile Include="LoginResult.cs" />
     <Compile Include="MaskType.cs" />
     <Compile Include="ProgressDialogConfig.cs" />
     <Compile Include="PromptConfig.cs" />
-    <Compile Include="PromptResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToastAction.cs" />
     <Compile Include="ToastConfig.cs" />

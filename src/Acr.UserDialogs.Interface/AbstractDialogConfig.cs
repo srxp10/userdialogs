@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 
 namespace Acr.UserDialogs
@@ -8,9 +9,10 @@ namespace Acr.UserDialogs
         public string Title { get; set; }
         public string Message { get; set; }
         public bool IsCancellable { get; set; }
-        public DialogButton Positive { get; set; }
-        public DialogButton Neutral { get; set; }
-        public DialogButton Negative { get; set; }
-        public int? AndroidStyleId { get; set; }
+        public IAction Positive { get; set; }
+        public IAction Neutral { get; set; }
+        public IAction Negative { get; set; }
+        public Color? BackgroundColor { get; set; }
+        public Color? TextColor { get; set; }
     }
 }

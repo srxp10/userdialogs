@@ -9,12 +9,11 @@ namespace Acr.UserDialogs
         string Title { get; set; }
         string Message { get; set; }
         bool IsCancellable { get; set; }
-        DialogButton Positive { get; set; }
-        DialogButton Neutral { get; set; }
-        DialogButton Negative { get; set; }
-        int? AndroidStyleId { get; set; }
+        IAction Positive { get; set; }
+        IAction Neutral { get; set; }
+        IAction Negative { get; set; }
 
-        //Color? BackgroundColor { get; set; }
-        //Color? TextColor { get; set; }
+        Color? BackgroundColor { get; set; }
+        Color? TextColor { get; set; }
     }
 }

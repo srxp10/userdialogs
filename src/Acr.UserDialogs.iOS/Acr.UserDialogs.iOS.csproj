@@ -34,9 +34,12 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ActionImpl.cs" />
+    <Compile Include="AlertDialogImpl.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProgressDialog.cs" />
+    <Compile Include="TextEntryImpl.cs" />
     <Compile Include="UserDialogsImpl.cs" />
     <Compile Include="TTGSnackbar.cs" />
     <Compile Include="AIDatePickerController.cs" />
