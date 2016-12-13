@@ -31,6 +31,7 @@ namespace Acr.UserDialogs
             throw new NotImplementedException();
         }
 
+
         #region Alert Dialogs
 
         public override IDisposable Alert(AlertConfig config)
@@ -140,22 +141,22 @@ namespace Acr.UserDialogs
         }
 
 
-        public override void ShowSuccess(string message, int timeoutMillis)
-        {
-            var activity = this.TopActivityFunc();
-            activity.RunOnUiThread(() =>
-                AndHUD.Shared.ShowSuccess(activity, message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
-            );
-        }
+        //public override void ShowSuccess(string message, int timeoutMillis)
+        //{
+        //    var activity = this.TopActivityFunc();
+        //    activity.RunOnUiThread(() =>
+        //        AndHUD.Shared.ShowSuccess(activity, message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
+        //    );
+        //}
 
 
-        public override void ShowError(string message, int timeoutMillis)
-        {
-            var activity = this.TopActivityFunc();
-            activity.RunOnUiThread(() =>
-                AndHUD.Shared.ShowError(activity, message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
-            );
-        }
+        //public override void ShowError(string message, int timeoutMillis)
+        //{
+        //    var activity = this.TopActivityFunc();
+        //    activity.RunOnUiThread(() =>
+        //        AndHUD.Shared.ShowError(activity, message, timeout: TimeSpan.FromMilliseconds(timeoutMillis))
+        //    );
+        //}
 
         #endregion
 

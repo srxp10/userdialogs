@@ -6,59 +6,35 @@ using Splat;
 
 namespace Acr.UserDialogs
 {
-
     public abstract class AbstractUserDialogs : IUserDialogs
     {
         const string NO_ONACTION = "OnAction should not be set as async will not use it";
 
         public abstract IAlertDialog CreateDialog();
-        public abstract IDisposable Alert(AlertConfig config);
-        public abstract IDisposable ActionSheet(ActionSheetConfig config);
+        protected abstract IProgressDialog CreateDialogInstance(ProgressDialogConfig config);
+        public abstract IDisposable Toast(ToastConfig config);
         public abstract IDisposable DatePrompt(DatePromptConfig config);
         public abstract IDisposable TimePrompt(TimePromptConfig config);
-        public abstract IDisposable Login(LoginConfig config);
-        public abstract IDisposable Prompt(PromptConfig config);
         public abstract void ShowImage(IBitmap image, string message, int timeoutMillis);
-        public abstract void ShowError(string message, int timeoutMillis);
-        public abstract void ShowSuccess(string message, int timeoutMillis);
-        public abstract IDisposable Toast(ToastConfig config);
-        protected abstract IProgressDialog CreateDialogInstance(ProgressDialogConfig config);
 
 
-        public virtual async Task<string> ActionSheetAsync(string title, string cancel, string destructive, CancellationToken? cancelToken = null, params string[] buttons)
+        public virtual IDisposable Toast(string message, TimeSpan? dismissTimer)
         {
-            var tcs = new TaskCompletionSource<string>();
-            var cfg = new ActionSheetConfig();
-            if (title != null)
-                cfg.Title = title;
-
-            // you must have a cancel option for actionsheetasync
-            //cfg.SetCancel(cancel, () => tcs.TrySetResult(cancel));
-
-            //if (destructive != null)
-            //    cfg.SetDestructive(destructive, () => tcs.TrySetResult(destructive));
-
-            //foreach (var btn in buttons)
-            //    cfg.Add(btn, () => tcs.TrySetResult(btn));
-
-            var disp = this.ActionSheet(cfg);
-            using (cancelToken?.Register(() => Cancel(disp, tcs)))
+            return this.Toast(new ToastConfig(message)
             {
-                return await tcs.Task;
-            }
+                Duration = dismissTimer ?? ToastConfig.DefaultDuration
+            });
         }
 
 
-        public virtual IDisposable Alert(string message, string title, string okText)
+        static void Cancel<TResult>(IDisposable disp, TaskCompletionSource<TResult> tcs)
         {
-            //return this.Alert(new AlertConfig()
-            //    .SetMessage(message)
-            //    .SetTitle(title)
-            //    .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
-            //);
-            return null;
+            disp.Dispose();
+            tcs.TrySetCanceled();
         }
 
+
+        #region Progress Dialogs
 
         IProgressDialog loading;
         public virtual void ShowLoading(string title, MaskType? maskType)
@@ -116,6 +92,64 @@ namespace Acr.UserDialogs
             return dlg;
         }
 
+        #endregion
+
+        #region ActionSheets
+
+        public virtual IDisposable ActionSheet(ActionSheetConfig config)
+        {
+            var dlg = this.CreateDialog();
+            //dlg.Positive = config.Positive;
+
+            return null;
+        }
+
+        public virtual async Task<string> ActionSheetAsync(string title, string cancel, string destructive, CancellationToken? cancelToken = null, params string[] buttons)
+        {
+            var tcs = new TaskCompletionSource<string>();
+            var cfg = new ActionSheetConfig();
+            if (title != null)
+                cfg.Title = title;
+
+            // you must have a cancel option for actionsheetasync
+            //cfg.SetCancel(cancel, () => tcs.TrySetResult(cancel));
+
+            //if (destructive != null)
+            //    cfg.SetDestructive(destructive, () => tcs.TrySetResult(destructive));
+
+            //foreach (var btn in buttons)
+            //    cfg.Add(btn, () => tcs.TrySetResult(btn));
+
+            var disp = this.ActionSheet(cfg);
+            using (cancelToken?.Register(() => Cancel(disp, tcs)))
+            {
+                return await tcs.Task;
+            }
+        }
+
+        #endregion
+
+        #region Alerts
+
+        public virtual IDisposable Alert(AlertConfig config)
+        {
+            var dlg = this.CreateDialog();
+
+            dlg.Show();
+
+            return null;
+        }
+
+
+        public virtual IDisposable Alert(string message, string title, string okText, Action<DialogChoice> action)
+        {
+            //return this.Alert(new AlertConfig()
+            //    .SetMessage(message)
+            //    .SetTitle(title)
+            //    .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
+            //);
+            return null;
+        }
 
         public virtual async Task<DialogChoice> AlertAsync(AlertConfig config, CancellationToken? cancelToken = null)
         {
@@ -132,6 +166,7 @@ namespace Acr.UserDialogs
             }
         }
 
+
         public virtual Task<DialogChoice> AlertAsync(string message, string title, string okText, CancellationToken? cancelToken = null)
         {
             //return this.AlertAsync(new AlertConfig()
@@ -143,6 +178,9 @@ namespace Acr.UserDialogs
             return null;
         }
 
+        #endregion
+
+        #region Confirm
 
         public virtual IDisposable Confirm(ConfirmConfig config)
         {
@@ -182,6 +220,10 @@ namespace Acr.UserDialogs
         {
             return false;
         }
+
+        #endregion
+
+        #region Date/Time
 
         public virtual async Task<DialogResult<DateTime>> DatePromptAsync(DatePromptConfig config, CancellationToken? cancelToken = null)
         {
@@ -240,6 +282,15 @@ namespace Acr.UserDialogs
             );
         }
 
+        #endregion
+
+        #region Login
+
+        public virtual IDisposable Login(LoginConfig config)
+        {
+            return null;
+        }
+
 
         public virtual async Task<DialogResult<Credentials>> LoginAsync(LoginConfig config, CancellationToken? cancelToken = null)
         {
@@ -264,6 +315,15 @@ namespace Acr.UserDialogs
                 //Title = title ?? LoginConfig.DefaultTitle,
                 Message = message
             }, cancelToken);
+        }
+
+        #endregion
+
+        #region Prompt
+
+        public virtual IDisposable Prompt(PromptConfig config)
+        {
+            return null;
         }
 
 
@@ -297,20 +357,6 @@ namespace Acr.UserDialogs
             return null;
         }
 
-
-        public virtual IDisposable Toast(string message, TimeSpan? dismissTimer)
-        {
-            return this.Toast(new ToastConfig(message)
-            {
-                Duration = dismissTimer ?? ToastConfig.DefaultDuration
-            });
-        }
-
-
-        static void Cancel<TResult>(IDisposable disp, TaskCompletionSource<TResult> tcs)
-        {
-            disp.Dispose();
-            tcs.TrySetCanceled();
-        }
+        #endregion
     }
 }

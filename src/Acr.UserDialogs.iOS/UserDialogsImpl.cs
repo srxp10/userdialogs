@@ -1,9 +1,6 @@
 using System;
-using System.Linq;
-using System.Text;
 using UIKit;
 using CoreGraphics;
-using Foundation;
 using Acr.Support.iOS;
 using BigTed;
 using Splat;
@@ -27,32 +24,32 @@ namespace Acr.UserDialogs
         }
 
 
-        public override IDisposable Alert(AlertConfig config)
-        {
-            return this.Present(() =>
-            {
-                var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-                //if (config.BackgroundColor != null)
-                //    alert.View.BackgroundColor = config.BackgroundColor.Value.ToNative();
+        //public override IDisposable Alert(AlertConfig config)
+        //{
+        //    return this.Present(() =>
+        //    {
+        //        var alert = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+        //        //if (config.BackgroundColor != null)
+        //        //    alert.View.BackgroundColor = config.BackgroundColor.Value.ToNative();
 
-                if (config.Negative != null)
-                    alert.AddAction(UIAlertAction.Create(config.Negative.Text, UIAlertActionStyle.Destructive, x => config.OnAction?.Invoke(DialogChoice.Negative)));
+        //        if (config.Negative != null)
+        //            alert.AddAction(UIAlertAction.Create(config.Negative.Text, UIAlertActionStyle.Destructive, x => config.OnAction?.Invoke(DialogChoice.Negative)));
 
-                if (config.Neutral != null)
-                    alert.AddAction(UIAlertAction.Create(config.Neutral.Text, UIAlertActionStyle.Cancel, x => config.OnAction?.Invoke(DialogChoice.Neutral)));
+        //        if (config.Neutral != null)
+        //            alert.AddAction(UIAlertAction.Create(config.Neutral.Text, UIAlertActionStyle.Cancel, x => config.OnAction?.Invoke(DialogChoice.Neutral)));
 
-                if (config.Positive != null)
-                    alert.AddAction(UIAlertAction.Create(config.Positive.Text, UIAlertActionStyle.Default, x => config.OnAction?.Invoke(DialogChoice.Positive)));
-                
-                return alert;
-            });
-        }
+        //        if (config.Positive != null)
+        //            alert.AddAction(UIAlertAction.Create(config.Positive.Text, UIAlertActionStyle.Default, x => config.OnAction?.Invoke(DialogChoice.Positive)));
+
+        //        return alert;
+        //    });
+        //}
 
 
-        public override IDisposable ActionSheet(ActionSheetConfig config)
-        {
-            return this.Present(() => this.CreateNativeActionSheet(config));
-        }
+        //public override IDisposable ActionSheet(ActionSheetConfig config)
+        //{
+        //    return this.Present(() => this.CreateNativeActionSheet(config));
+        //}
 
 
         public override IDisposable DatePrompt(DatePromptConfig config)
@@ -95,157 +92,140 @@ namespace Acr.UserDialogs
         }
 
 
-        public override IDisposable Login(LoginConfig config)
-        {
-            return this.Present(() =>
-            {
-                UITextField txtUser = null;
-                UITextField txtPass = null;
+        //public override IDisposable Login(LoginConfig config)
+        //{
+        //    return this.Present(() =>
+        //    {
+        //        UITextField txtUser = null;
+        //        UITextField txtPass = null;
 
-                var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-                //if (config.BackgroundColor != null)
-                //{
-                //    dlg.View.BackgroundColor = config.BackgroundColor.Value.ToNative();
-                //}
-                if (config.Negative != null)
-                {
-                    dlg.AddAction(UIAlertAction.Create(
-                        config.Negative.Text,
-                        UIAlertActionStyle.Destructive,
-                        x => config.OnAction?.Invoke(new DialogResult<Credentials>(
-                            DialogChoice.Negative,
-                            new Credentials(txtUser.Text, txtPass.Text)
-                        ))
-                    ));
-                }
-                if (config.Neutral != null)
-                {
-                    dlg.AddAction(UIAlertAction.Create(
-                        config.Neutral.Text,
-                        UIAlertActionStyle.Cancel,
-                        x => config.OnAction?.Invoke(new DialogResult<Credentials>(
-                            DialogChoice.Neutral,
-                            new Credentials(txtUser.Text, txtPass.Text)
-                        ))
-                    ));
-                }
-                if (config.Positive != null)
-                {
-                    dlg.AddAction(UIAlertAction.Create(
-                        config.Positive.Text,
-                        UIAlertActionStyle.Default,
-                        x => config.OnAction?.Invoke(new DialogResult<Credentials>(
-                            DialogChoice.Positive,
-                            new Credentials(txtUser.Text, txtPass.Text)
-                        ))
-                    ));
-                }
-                dlg.AddTextField(x =>
-                {
-                    txtUser = x;
-                    x.Placeholder = config.LoginPlaceholder;
-                    x.Text = config.LoginValue ?? String.Empty;
-                });
-                dlg.AddTextField(x =>
-                {
-                    txtPass = x;
-                    x.Placeholder = config.PasswordPlaceholder;
-                    x.SecureTextEntry = true;
-                });
-                return dlg;
-            });
-        }
+        //        var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+        //        //if (config.BackgroundColor != null)
+        //        //{
+        //        //    dlg.View.BackgroundColor = config.BackgroundColor.Value.ToNative();
+        //        //}
+        //        if (config.Negative != null)
+        //        {
+        //            dlg.AddAction(UIAlertAction.Create(
+        //                config.Negative.Text,
+        //                UIAlertActionStyle.Destructive,
+        //                x => config.OnAction?.Invoke(new DialogResult<Credentials>(
+        //                    DialogChoice.Negative,
+        //                    new Credentials(txtUser.Text, txtPass.Text)
+        //                ))
+        //            ));
+        //        }
+        //        if (config.Neutral != null)
+        //        {
+        //            dlg.AddAction(UIAlertAction.Create(
+        //                config.Neutral.Text,
+        //                UIAlertActionStyle.Cancel,
+        //                x => config.OnAction?.Invoke(new DialogResult<Credentials>(
+        //                    DialogChoice.Neutral,
+        //                    new Credentials(txtUser.Text, txtPass.Text)
+        //                ))
+        //            ));
+        //        }
+        //        if (config.Positive != null)
+        //        {
+        //            dlg.AddAction(UIAlertAction.Create(
+        //                config.Positive.Text,
+        //                UIAlertActionStyle.Default,
+        //                x => config.OnAction?.Invoke(new DialogResult<Credentials>(
+        //                    DialogChoice.Positive,
+        //                    new Credentials(txtUser.Text, txtPass.Text)
+        //                ))
+        //            ));
+        //        }
+        //        dlg.AddTextField(x =>
+        //        {
+        //            txtUser = x;
+        //            x.Placeholder = config.LoginPlaceholder;
+        //            x.Text = config.LoginValue ?? String.Empty;
+        //        });
+        //        dlg.AddTextField(x =>
+        //        {
+        //            txtPass = x;
+        //            x.Placeholder = config.PasswordPlaceholder;
+        //            x.SecureTextEntry = true;
+        //        });
+        //        return dlg;
+        //    });
+        //}
 
 
-        public override IDisposable Prompt(PromptConfig config)
-        {
-            return this.Present(() =>
-            {
-                var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
-                UITextField txt = null;
+        //public override IDisposable Prompt(PromptConfig config)
+        //{
+        //    return this.Present(() =>
+        //    {
+        //        var dlg = UIAlertController.Create(config.Title ?? String.Empty, config.Message, UIAlertControllerStyle.Alert);
+        //        UITextField txt = null;
 
-                //if (config.BackgroundColor != null)
-                //{
-                //    dlg.View.BackgroundColor = config.BackgroundColor.Value.ToNative();
-                //}
-                if (config.Negative != null)
-                {
-                    dlg.AddAction(UIAlertAction.Create(config.Negative.Text, UIAlertActionStyle.Destructive, x =>
-                        config.OnAction?.Invoke(new DialogResult<string>(DialogChoice.Negative, txt.Text.Trim())
-                    )));
-                }
-                if (config.Neutral != null)
-                {
-                    dlg.AddAction(UIAlertAction.Create(config.Neutral.Text, UIAlertActionStyle.Cancel, x =>
-                        config.OnAction?.Invoke(new DialogResult<string>(DialogChoice.Neutral, txt.Text.Trim())
-                    )));
-                }
-                if (config.Positive != null)
-                {
-                    var btnOk = UIAlertAction.Create(config.Positive.Text, UIAlertActionStyle.Default, x =>
-                        config.OnAction?.Invoke(new DialogResult<string>(DialogChoice.Positive, txt.Text.Trim())
-                    ));
-                    dlg.AddAction(btnOk);
-                }
-                if (config.Positive == null && config.OnTextChanged != null)
-                    throw new ArgumentException("You cannot have a null positive button with OnTextChanged set");
+        //        //if (config.BackgroundColor != null)
+        //        //{
+        //        //    dlg.View.BackgroundColor = config.BackgroundColor.Value.ToNative();
+        //        //}
+        //        if (config.Negative != null)
+        //        {
+        //            dlg.AddAction(UIAlertAction.Create(config.Negative.Text, UIAlertActionStyle.Destructive, x =>
+        //                config.OnAction?.Invoke(new DialogResult<string>(DialogChoice.Negative, txt.Text.Trim())
+        //            )));
+        //        }
+        //        if (config.Neutral != null)
+        //        {
+        //            dlg.AddAction(UIAlertAction.Create(config.Neutral.Text, UIAlertActionStyle.Cancel, x =>
+        //                config.OnAction?.Invoke(new DialogResult<string>(DialogChoice.Neutral, txt.Text.Trim())
+        //            )));
+        //        }
+        //        if (config.Positive != null)
+        //        {
+        //            var btnOk = UIAlertAction.Create(config.Positive.Text, UIAlertActionStyle.Default, x =>
+        //                config.OnAction?.Invoke(new DialogResult<string>(DialogChoice.Positive, txt.Text.Trim())
+        //            ));
+        //            dlg.AddAction(btnOk);
+        //        }
+        //        if (config.Positive == null && config.OnTextChanged != null)
+        //            throw new ArgumentException("You cannot have a null positive button with OnTextChanged set");
 
-                dlg.AddTextField(x =>
-                {
-                    txt = x;
-                    if (config.MaxLength != null)
-                    {
-                        txt.ShouldChangeCharacters = (field, replacePosition, replacement) =>
-                        {
-                            var updatedText = new StringBuilder(field.Text);
-                            updatedText.Remove((int)replacePosition.Location, (int)replacePosition.Length);
-                            updatedText.Insert((int)replacePosition.Location, replacement);
-                            return updatedText.ToString().Length <= config.MaxLength.Value;
-                        };
-                    }
+        //        dlg.AddTextField(x =>
+        //        {
+        //            txt = x;
+        //            if (config.MaxLength != null)
+        //            {
+        //                txt.ShouldChangeCharacters = (field, replacePosition, replacement) =>
+        //                {
+        //                    var updatedText = new StringBuilder(field.Text);
+        //                    updatedText.Remove((int)replacePosition.Location, (int)replacePosition.Length);
+        //                    updatedText.Insert((int)replacePosition.Location, replacement);
+        //                    return updatedText.ToString().Length <= config.MaxLength.Value;
+        //                };
+        //            }
 
-                    if (config.OnTextChanged != null)
-                    {
-                        txt.Ended += (sender, e) =>
-                        {
-                            var args = new PromptTextChangedArgs { Value = txt.Text };
-                            config.OnTextChanged(args);
-                            btnOk.Enabled = args.IsValid;
-                            if (!txt.Text.Equals(args.Value))
-                                txt.Text = args.Value;
-                        };
-                    }
-                    this.SetInputType(txt, config.InputType);
-                    txt.Placeholder = config.Placeholder ?? String.Empty;
-                    if (config.Text != null)
-                        txt.Text = config.Text;
-                });
-                return dlg;
-            });
-        }
+        //            if (config.OnTextChanged != null)
+        //            {
+        //                txt.Ended += (sender, e) =>
+        //                {
+        //                    var args = new PromptTextChangedArgs { Value = txt.Text };
+        //                    config.OnTextChanged(args);
+        //                    btnOk.Enabled = args.IsValid;
+        //                    if (!txt.Text.Equals(args.Value))
+        //                        txt.Text = args.Value;
+        //                };
+        //            }
+        //            this.SetInputType(txt, config.InputType);
+        //            txt.Placeholder = config.Placeholder ?? String.Empty;
+        //            if (config.Text != null)
+        //                txt.Text = config.Text;
+        //        });
+        //        return dlg;
+        //    });
+        //}
 
 
         public override void ShowImage(IBitmap image, string message, int timeoutMillis)
         {
             BTProgressHUD.ShowImage(image.ToNative(), message, timeoutMillis);
             //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(image.ToNative(), message, timeoutMillis));
-        }
-
-
-        public override void ShowError(string message, int timeoutMillis)
-        {
-            BTProgressHUD.ShowErrorWithStatus(message, timeoutMillis);
-            //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowErrorWithStatus(message, timeoutMillis));
-            //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(UIImage.FromBundle("icon-error"), message, timeoutMillis));
-        }
-
-
-        public override void ShowSuccess(string message, int timeoutMillis)
-        {
-
-            BTProgressHUD.ShowSuccessWithStatus(message, timeoutMillis);
-            //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowSuccessWithStatus(message, timeoutMillis));
-            //this.ShowWithOverlay(timeoutMillis, () => BTProgressHUD.ShowImage(UIImage.FromBundle("icon-success"), message, timeoutMillis));
         }
 
 
@@ -293,39 +273,6 @@ namespace Acr.UserDialogs
 
 
         #region Internals
-
-        protected virtual UIAlertController CreateNativeActionSheet(ActionSheetConfig config)
-        {
-            var sheet = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.ActionSheet);
-
-            if (config.Destructive != null)
-                this.AddActionSheetOption(config.Destructive, sheet, UIAlertActionStyle.Destructive);
-
-            config
-                .Options
-                .ToList()
-                .ForEach(x => this.AddActionSheetOption(x, sheet, UIAlertActionStyle.Default, config.ItemIcon));
-
-            if (config.Cancel != null)
-                this.AddActionSheetOption(config.Cancel, sheet, UIAlertActionStyle.Cancel);
-
-            return sheet;
-        }
-
-
-        protected virtual void AddActionSheetOption(ActionSheetOption opt, UIAlertController controller, UIAlertActionStyle style, IBitmap image = null)
-        {
-            var alertAction = UIAlertAction.Create(opt.Text, style, x => opt.Action?.Invoke());
-
-            if (opt.ItemIcon == null && image != null)
-                opt.ItemIcon = image;
-
-            if (opt.ItemIcon != null)
-                alertAction.SetValueForKey(opt.ItemIcon.ToNative(), new NSString("image"));
-
-            controller.AddAction(alertAction);
-        }
-
 
         protected override IProgressDialog CreateDialogInstance(ProgressDialogConfig config)
         {
@@ -378,45 +325,6 @@ namespace Acr.UserDialogs
                 }
                 catch { }
             });
-        }
-
-
-        protected virtual void SetInputType(UITextField txt, KeyboardType inputType)
-        {
-            switch (inputType)
-            {
-                case KeyboardType.DecimalNumber:
-                    txt.KeyboardType = UIKeyboardType.DecimalPad;
-                    break;
-
-                case KeyboardType.Email:
-                    txt.KeyboardType = UIKeyboardType.EmailAddress;
-                    break;
-
-                case KeyboardType.Name:
-                    break;
-
-                case KeyboardType.Number:
-                    txt.KeyboardType = UIKeyboardType.NumberPad;
-                    break;
-
-                case KeyboardType.NumericPassword:
-                    txt.SecureTextEntry = true;
-                    txt.KeyboardType = UIKeyboardType.NumberPad;
-                    break;
-
-                case KeyboardType.Password:
-                    txt.SecureTextEntry = true;
-                    break;
-
-                case KeyboardType.Phone:
-                    txt.KeyboardType = UIKeyboardType.PhonePad;
-                    break;
-
-                case KeyboardType.Url:
-                    txt.KeyboardType = UIKeyboardType.Url;
-                    break;
-            }
         }
 
         #endregion

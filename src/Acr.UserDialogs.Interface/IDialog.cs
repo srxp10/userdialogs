@@ -10,15 +10,16 @@ namespace Acr.UserDialogs
         string Title { get; set; }
         bool IsCancellable { get; set; }
 
-        IAction Positive { get; set; }
-        IAction Neutral { get; set; }
-        IAction Negative { get; set; }
+        IAction Positive { get; }
+        IAction Neutral { get; }
+        IAction Negative { get; }
 
-        IList<IAction> Actions { get; }
-        IList<ITextEntry> TextEntries { get; }
+        IReadOnlyList<IAction> Actions { get; }
+        IReadOnlyList<ITextEntry> TextEntries { get; }
 
         IAlertDialog AddTextBox(Action<ITextEntry> instance);
-        IAlertDialog AddAction(Action<IAction> button);
+        IAlertDialog AddAction(Action<IAction> action);
+        IAlertDialog SetMainAction(DialogChoice choice, Action<IAction> action);
         void Show();
         void Dismiss();
 

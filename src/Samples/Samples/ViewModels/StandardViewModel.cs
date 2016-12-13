@@ -178,7 +178,7 @@ namespace Samples.ViewModels
                             Message = "Type in lower case and it will convert to upper case",
                             OnTextChanged = args => args.Value = args.Value.ToUpper()
                         });
-                        this.Result($"Result - {result.Ok} - {result.Text}");
+                        this.Result($"Result - {result.Choice} - {result.Value}");
                     })
                 },
                 new CommandViewModel
@@ -204,7 +204,7 @@ namespace Samples.ViewModels
                         {
                             IsCancellable = true
                         }, token);
-                        this.Result($"Time Prompt: {result.Ok} - Value: {result.SelectedTime}");
+                        this.Result($"Time Prompt: {result.Ok} - Value: {result.Value}");
                     })
                 },
                 new CommandViewModel
@@ -215,7 +215,7 @@ namespace Samples.ViewModels
                             IsCancellable = true,
                             Use24HourClock = true
                         }, token);
-                        this.Result ($"Time Prompt: {result.Ok} - Value: {result.SelectedTime}");
+                        this.Result ($"Time Prompt: {result.Ok} - Value: {result.Value}");
                     })
                 }
             };

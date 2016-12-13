@@ -11,7 +11,7 @@ namespace Acr.UserDialogs
     {
         IAlertDialog CreateDialog();
 
-        IDisposable Alert(string message, string title = null, string okText = null);
+        IDisposable Alert(string message, string title = null, string okText = null, Action<DialogChoice> action = null);
         IDisposable Alert(AlertConfig config);
         Task<DialogChoice> AlertAsync(string message, string title = null, string okText = null, CancellationToken? cancelToken = null);
         Task<DialogChoice> AlertAsync(AlertConfig config, CancellationToken? cancelToken = null);
@@ -42,13 +42,10 @@ namespace Acr.UserDialogs
         IProgressDialog Progress(ProgressDialogConfig config);
         IProgressDialog Loading(string title = null, Action onCancel = null, string cancelText = null, bool show = true, MaskType? maskType = null);
         IProgressDialog Progress(string title = null, Action onCancel = null, string cancelText = null, bool show = true, MaskType? maskType = null);
-
         void ShowLoading(string title = null, MaskType? maskType = null);
         void HideLoading();
 
         void ShowImage(IBitmap image, string message, int timeoutMillis = 2000);
-        void ShowSuccess(string message, int timeoutMillis = 2000);
-        void ShowError(string message, int timeoutMillis = 2000);
 
         IDisposable Toast(string title, TimeSpan? dismissTimer = null);
         IDisposable Toast(ToastConfig cfg);
