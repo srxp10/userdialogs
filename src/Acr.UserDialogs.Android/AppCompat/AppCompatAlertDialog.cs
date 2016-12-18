@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Acr.UserDialogs.Fragments;
 using Android.Support.V7.App;
 
 
-namespace Acr.UserDialogs
+namespace Acr.UserDialogs.AppCompat
 {
     public class AppCompatAlertDialog : IAlertDialog
     {
@@ -36,6 +37,7 @@ namespace Acr.UserDialogs
 
         public void Show()
         {
+            // TODO: this has to be on the main thread
             throw new NotImplementedException();
         }
 
@@ -45,6 +47,20 @@ namespace Acr.UserDialogs
         }
 
         public Action Dimissed { get; set; }
+
+
+        protected virtual IDisposable ShowDialog<TFragment, TConfig>(AppCompatActivity activity, TConfig config) where TFragment : AbstractAppCompatDialogFragment<TConfig> where TConfig : class, new()
+        {
+            var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
+            activity.RunOnUiThread(() =>
+            {
+                frag.Config = config;
+                frag.Show(activity.SupportFragmentManager, FragmentTag);
+            });
+            return new DisposableAction(() =>
+                activity.RunOnUiThread(frag.Dismiss)
+            );
+        }
     }
 }
 

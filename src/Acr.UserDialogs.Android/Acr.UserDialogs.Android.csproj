@@ -80,12 +80,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionImpl.cs" />
-    <Compile Include="ActionSheetListAdapter.cs" />
-    <Compile Include="AppCompatAlertDialog.cs" />
+    <Compile Include="AppCompat\AppCompatToast.cs" />
+    <Compile Include="Classic\ClassicToast.cs" />
+    <Compile Include="Internals\ActionImpl.cs" />
+    <Compile Include="Internals\ActionSheetListAdapter.cs" />
+    <Compile Include="AppCompat\AppCompatAlertDialog.cs" />
     <Compile Include="Builders\TimePromptBuilder.cs" />
     <Compile Include="Builders\DatePromptBuilder.cs" />
-    <Compile Include="ClassicAlertConfig.cs" />
+    <Compile Include="Classic\ClassicAlertDialog.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Fragments\AbstractDialogFragment.cs" />
     <Compile Include="Fragments\ActionSheetDialogFragment.cs" />
@@ -100,7 +102,7 @@
     <Compile Include="Fragments\PromptDialogFragment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProgressDialog.cs" />
-    <Compile Include="TextEntryImpl.cs" />
+    <Compile Include="Internals\TextEntryImpl.cs" />
     <Compile Include="UserDialogsImpl.cs" />
   </ItemGroup>
   <ItemGroup />
