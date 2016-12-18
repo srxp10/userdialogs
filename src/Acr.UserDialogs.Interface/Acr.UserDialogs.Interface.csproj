@@ -37,6 +37,7 @@
     <Compile Include="..\Acr.UserDialogs.Shared\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AbstractAlertDialog.cs" />
     <Compile Include="AbstractDialogConfig.cs" />
     <Compile Include="AbstractUserDialogs.cs" />
     <Compile Include="ActionSheetConfig.cs" />

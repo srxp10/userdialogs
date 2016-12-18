@@ -1,4 +1,10 @@
 using System;
+using Android.App;
+using Android.Support.Design.Widget;
+using Android.Text;
+using Android.Views;
+using Android.Widget;
+using Splat;
 
 
 namespace Acr.UserDialogs.AppCompat
@@ -22,7 +28,7 @@ namespace Acr.UserDialogs.AppCompat
             this.activity.RunOnUiThread(() =>
             {
                 var view = activity.Window.DecorView.RootView.FindViewById(Android.Resource.Id.Content);
-                this.snackBar = this.snackBar.Make(
+                this.snackBar = Snackbar.Make(
                     view,
                     Html.FromHtml(this.config.Message),
                     (int)this.config.Duration.TotalMilliseconds

@@ -1,52 +1,29 @@
 using System;
-using System.Collections.Generic;
 using Acr.UserDialogs.Fragments;
+using Acr.UserDialogs.Internals;
 using Android.Support.V7.App;
 
 
 namespace Acr.UserDialogs.AppCompat
 {
-    public class AppCompatAlertDialog : IAlertDialog
+    public class AppCompatAlertDialog : AbstractDroidAlertDialog
     {
-        readonly AppCompatActivity activity;
+        public const string FragmentTag = "acr";
 
-
-        public AppCompatAlertDialog(AppCompatActivity activity)
+        public AppCompatAlertDialog(AppCompatActivity activity) : base(activity)
         {
-            this.activity = activity;
         }
 
 
-        public string Message { get; set; }
-        public string Title { get; set; }
-        public bool IsCancellable { get; set; }
-        public IAction Positive { get; set; }
-        public IAction Neutral { get; set; }
-        public IAction Negative { get; set; }
-        public IReadOnlyList<IAction> Actions { get; } = new List<IAction>();
-        public IReadOnlyList<ITextEntry> TextBoxes { get; } = new List<ITextEntry>();
-        public IAlertDialog AddTextBox(Action<ITextEntry> instance)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IAlertDialog AddAction(Action<IAction> button)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Show()
+        public override void Show()
         {
             // TODO: this has to be on the main thread
-            throw new NotImplementedException();
         }
 
-        public void Dismiss()
+
+        public override void Dismiss()
         {
-            throw new NotImplementedException();
         }
-
-        public Action Dimissed { get; set; }
 
 
         protected virtual IDisposable ShowDialog<TFragment, TConfig>(AppCompatActivity activity, TConfig config) where TFragment : AbstractAppCompatDialogFragment<TConfig> where TConfig : class, new()

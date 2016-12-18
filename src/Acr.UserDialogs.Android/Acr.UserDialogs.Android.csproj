@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="AppCompat\AppCompatToast.cs" />
     <Compile Include="Classic\ClassicToast.cs" />
+    <Compile Include="Internals\AbstractDroidAlertDialog.cs" />
     <Compile Include="Internals\ActionImpl.cs" />
     <Compile Include="Internals\ActionSheetListAdapter.cs" />
     <Compile Include="AppCompat\AppCompatAlertDialog.cs" />

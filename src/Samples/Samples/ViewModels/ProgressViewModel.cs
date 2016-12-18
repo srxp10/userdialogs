@@ -40,16 +40,6 @@ namespace Samples.ViewModels
                 },
                 new CommandViewModel
                 {
-                    Text = "Show Error",
-                    Command = new Command(() => this.Dialogs.ShowError("TEST ERROR!"))
-                },
-                new CommandViewModel
-                {
-                    Text = "Show Success",
-                    Command = new Command(() => this.Dialogs.ShowSuccess("TEST SUCCESS!"))
-                },
-                new CommandViewModel
-                {
                     Text = "Progress",
                     Command = new Command(async () =>
                     {
@@ -88,17 +78,6 @@ namespace Samples.ViewModels
                     {
                         using (this.Dialogs.Loading("Loading (No Cancel)"))
                             await Task.Delay(TimeSpan.FromSeconds(3));
-                    })
-                },
-                new CommandViewModel
-                {
-                    Text = "Loading To Success",
-                    Command = new Command(async () =>
-                    {
-                        using (this.Dialogs.Loading("Test Loading"))
-                            await Task.Delay(3000);
-
-                        this.Dialogs.ShowSuccess("Success Loading!");
                     })
                 },
                 new CommandViewModel

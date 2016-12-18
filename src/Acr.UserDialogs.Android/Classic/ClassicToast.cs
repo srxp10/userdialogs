@@ -1,4 +1,6 @@
 using System;
+using Android.App;
+using AndroidHUD;
 
 
 namespace Acr.UserDialogs.Classic

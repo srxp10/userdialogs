@@ -23,6 +23,6 @@ namespace Acr.UserDialogs
         void Show();
         void Dismiss();
 
-        //Action Dismissed { get; set; }
+        Action Dismissed { get; set; }
     }
 }
