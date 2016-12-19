@@ -9,12 +9,13 @@ using Splat;
 
 namespace Acr.UserDialogs
 {
-    public class TextEntryImpl : ITextEntry
+    public class TextEntry : ITextEntry
     {
         readonly EditText editText;
 
 
-        public TextEntryImpl(Activity activity)
+        // TODO: this changes the bait & switch constructor
+        public TextEntry(Activity activity)
         {
             this.editText = new EditText(activity);
             this.editText.SetSingleLine(true);

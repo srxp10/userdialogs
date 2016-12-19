@@ -6,7 +6,7 @@ using Android.Widget;
 using Splat;
 
 
-namespace Acr.UserDialogs
+namespace Acr.UserDialogs.Internals
 {
 
     public class ActionSheetListAdapter : ArrayAdapter<ActionSheetOption>

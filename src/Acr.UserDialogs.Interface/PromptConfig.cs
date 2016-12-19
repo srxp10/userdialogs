@@ -5,11 +5,12 @@ namespace Acr.UserDialogs
 {
     public class PromptConfig : AbstractDialogConfig
     {
+        public ITextEntry TextEntry { get; set; }
         public Action<DialogResult<string>> OnAction { get; set; }
 
-        /// <summary>
-        /// Setting this allows you to not only validate (enable/disable positive button) but also change the current text value of the prompt
-        /// </summary>
+        ///// <summary>
+        ///// Setting this allows you to not only validate (enable/disable positive button) but also change the current text value of the prompt
+        ///// </summary>
         //public Action<PromptTextChangedArgs> OnTextChanged { get; set; }
 
 

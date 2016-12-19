@@ -83,7 +83,7 @@
     <Compile Include="AppCompat\AppCompatToast.cs" />
     <Compile Include="Classic\ClassicToast.cs" />
     <Compile Include="Internals\AbstractDroidAlertDialog.cs" />
-    <Compile Include="Internals\ActionImpl.cs" />
+    <Compile Include="DialogAction.cs" />
     <Compile Include="Internals\ActionSheetListAdapter.cs" />
     <Compile Include="AppCompat\AppCompatAlertDialog.cs" />
     <Compile Include="Builders\TimePromptBuilder.cs" />
@@ -103,7 +103,7 @@
     <Compile Include="Fragments\PromptDialogFragment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProgressDialog.cs" />
-    <Compile Include="Internals\TextEntryImpl.cs" />
+    <Compile Include="TextEntry.cs" />
     <Compile Include="UserDialogsImpl.cs" />
   </ItemGroup>
   <ItemGroup />

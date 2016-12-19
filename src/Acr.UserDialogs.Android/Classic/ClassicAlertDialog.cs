@@ -8,6 +8,7 @@ namespace Acr.UserDialogs.Classic
     public class ClassicAlertDialog : AbstractDroidAlertDialog
     {
         AlertDialog.Builder builder;
+        AlertDialog dialog;
 
 
         public ClassicAlertDialog(Activity activity) : base(activity)
@@ -17,6 +18,7 @@ namespace Acr.UserDialogs.Classic
 
         public override void Show()
         {
+            // TODO: everything below here has to happen on the main thread
             this.builder = new AlertDialog.Builder(this.Activity);
         }
 

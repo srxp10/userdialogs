@@ -9,9 +9,9 @@ namespace Acr.UserDialogs
         string Title { get; set; }
         string Message { get; set; }
         bool IsCancellable { get; set; }
-        IAction Positive { get; set; }
-        IAction Neutral { get; set; }
-        IAction Negative { get; set; }
+        IDialogAction Positive { get; set; }
+        IDialogAction Neutral { get; set; }
+        IDialogAction Negative { get; set; }
 
         Color? BackgroundColor { get; set; }
         Color? TextColor { get; set; }

@@ -11,31 +11,33 @@ namespace Acr.UserDialogs
     {
         IAlertDialog CreateDialog();
 
-        IDisposable Alert(string message, string title = null, string okText = null, Action<DialogChoice> action = null);
-        IDisposable Alert(AlertConfig config);
+        IAlertDialog Alert(string message, string title = null, string okText = null, Action<DialogChoice> action = null);
+        IAlertDialog Alert(AlertConfig config);
         Task<DialogChoice> AlertAsync(string message, string title = null, string okText = null, CancellationToken? cancelToken = null);
         Task<DialogChoice> AlertAsync(AlertConfig config, CancellationToken? cancelToken = null);
 
-        IDisposable ActionSheet(ActionSheetConfig config);
+        IAlertDialog ActionSheet(ActionSheetConfig config);
         Task<string> ActionSheetAsync(string title, string cancel, string destructive, CancellationToken? cancelToken = null, params string[] buttons);
 
-        IDisposable Confirm(ConfirmConfig config);
+        IAlertDialog Confirm(ConfirmConfig config);
         Task<bool> ConfirmAsync(string message, string title = null, string okText = null, string cancelText = null, CancellationToken? cancelToken = null);
         Task<bool> ConfirmAsync(ConfirmConfig config, CancellationToken? cancelToken = null);
 
+        // TODO: date prompt disposable
         IDisposable DatePrompt(DatePromptConfig config);
         Task<DialogResult<DateTime>> DatePromptAsync(DatePromptConfig config, CancellationToken? cancelToken = null);
         Task<DialogResult<DateTime>> DatePromptAsync(string title = null, DateTime? selectedDate = null, CancellationToken? cancelToken = null);
 
+        // TODO: time prompt disposable
         IDisposable TimePrompt(TimePromptConfig config);
         Task<DialogResult<TimeSpan>> TimePromptAsync(TimePromptConfig config, CancellationToken? cancelToken = null);
         Task<DialogResult<TimeSpan>> TimePromptAsync(string title = null, TimeSpan? selectedTime = null, CancellationToken? cancelToken = null);
 
-        IDisposable Prompt(PromptConfig config);
+        IAlertDialog Prompt(PromptConfig config);
         Task<DialogResult<string>> PromptAsync(string message, string title = null, string okText = null, string cancelText = null, string placeholder = "", KeyboardType inputType = KeyboardType.Default, CancellationToken? cancelToken = null);
         Task<DialogResult<string>> PromptAsync(PromptConfig config, CancellationToken? cancelToken = null);
 
-        IDisposable Login(LoginConfig config);
+        IAlertDialog Login(LoginConfig config);
         Task<DialogResult<Credentials>> LoginAsync(string title = null, string message = null, CancellationToken? cancelToken = null);
         Task<DialogResult<Credentials>> LoginAsync(LoginConfig config, CancellationToken? cancelToken = null);
 

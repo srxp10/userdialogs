@@ -15,7 +15,7 @@ namespace Acr.UserDialogs.Internals
         protected Activity Activity { get; }
 
 
-        protected override IAction CreateAction()
+        protected override IDialogAction CreateAction()
         {
             return new ActionImpl();
         }

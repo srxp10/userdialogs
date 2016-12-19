@@ -7,7 +7,7 @@ using UIKit;
 
 namespace Acr.UserDialogs
 {
-    public class TextEntryImpl : ITextEntry
+    public class TextEntry : ITextEntry
     {
         UITextField native;
 

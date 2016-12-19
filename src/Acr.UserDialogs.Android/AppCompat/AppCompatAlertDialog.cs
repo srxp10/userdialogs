@@ -1,7 +1,9 @@
 using System;
 using Acr.UserDialogs.Fragments;
 using Acr.UserDialogs.Internals;
+using Android.App;
 using Android.Support.V7.App;
+using AlertDialog = Android.Support.V7.App.AlertDialog;
 
 
 namespace Acr.UserDialogs.AppCompat
@@ -9,8 +11,11 @@ namespace Acr.UserDialogs.AppCompat
     public class AppCompatAlertDialog : AbstractDroidAlertDialog
     {
         public const string FragmentTag = "acr";
+        AlertDialog.Builder builder;
+        AlertDialog dialog;
 
-        public AppCompatAlertDialog(AppCompatActivity activity) : base(activity)
+
+        public AppCompatAlertDialog(Activity activity) : base(activity)
         {
         }
 
@@ -18,6 +23,7 @@ namespace Acr.UserDialogs.AppCompat
         public override void Show()
         {
             // TODO: this has to be on the main thread
+            this.builder = new AlertDialog.Builder(this.Activity);
         }
 
 

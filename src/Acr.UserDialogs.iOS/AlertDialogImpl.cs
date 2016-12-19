@@ -6,7 +6,7 @@ using UIKit;
 
 namespace Acr.UserDialogs
 {
-    public class AlertDialogImpl : IAlertDialog
+    public class AlertDialogImpl : AbstractAlertDialog
     {
         readonly Func<UIViewController> viewControllerFunc;
         UIAlertController alert;
@@ -18,40 +18,16 @@ namespace Acr.UserDialogs
         }
 
 
-        public string Message { get; set; }
-        public string Title { get; set; }
-        public bool IsCancellable { get; set; }
-        public IAction Positive { get; set; }
-        public IAction Neutral { get; set; }
-        public IAction Negative { get; set; }
-        public IReadOnlyList<IAction> Actions { get; } = new List<IAction>();
-        public IReadOnlyList<ITextEntry> TextEntries { get; } = new List<ITextEntry>();
-
-
-        public IAlertDialog AddTextBox(Action<ITextEntry> instance)
-        {
-            return this;
-        }
-
-
-        public IAlertDialog AddAction(Action<IAction> action)
-        {
-            var obj = new ActionImpl();
-            action(obj);
-
-            return this;
-        }
-
-        public void Show()
+        public override void Show()
         {
             var style = this.Actions.Any() ? UIAlertControllerStyle.ActionSheet : UIAlertControllerStyle.Alert;
             this.alert = UIAlertController.Create(this.Title, this.Message, style);
 
-            foreach (var action in this.Actions.OfType<ActionImpl>())
+            foreach (var action in this.Actions.OfType<DialogAction>())
             {
                 this.alert.AddAction(action.Create());
             }
-            foreach (var txt in this.TextEntries.OfType<TextEntryImpl>())
+            foreach (var txt in this.TextEntries.OfType<TextEntry>())
             {
                 this.alert.AddTextField(x => txt.Hook(x));
             }
@@ -62,16 +38,16 @@ namespace Acr.UserDialogs
         }
 
 
-        public void Dismiss()
+        public override void Dismiss()
         {
             this.alert?.DismissViewController(true, null);
         }
 
 
         public Action Dismissed { get; set; }
-        public IAlertDialog SetMainAction(DialogChoice choice, Action<IAction> action)
+        public IAlertDialog SetMainAction(DialogChoice choice, Action<IDialogAction> action)
         {
-            var obj = new ActionImpl { Choice = choice };
+            var obj = new DialogAction { Choice = choice };
             action(obj);
             switch (choice)
             {
@@ -91,9 +67,9 @@ namespace Acr.UserDialogs
         }
 
 
-        void AddNativeMainAction(UIAlertController ctrl, IAction action)
+        void AddNativeMainAction(UIAlertController ctrl, IDialogAction action)
         {
-            var impl = action as ActionImpl;
+            var impl = action as DialogAction;
             if (impl != null)
                 ctrl.AddAction(impl.Create());
         }

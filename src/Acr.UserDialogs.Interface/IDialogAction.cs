@@ -5,16 +5,16 @@ using Splat;
 
 namespace Acr.UserDialogs
 {
-    public interface IAction
+    public interface IDialogAction
     {
-        DialogChoice Choice { get; set; }
+        //DialogChoice Choice { get; set; }
         string Label { get; set; }
         bool Enabled { get; set; }
         Color? TextColor { get; set; }
         Color? BackgroundColor { get; set; }
         IBitmap Icon { get; set; }
 
-        Action<IAction> Tap { get; set; }
+        Action<IDialogAction> Tap { get; set; }
         // TODO: border color
     }
 }

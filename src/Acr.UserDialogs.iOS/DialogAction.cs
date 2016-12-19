@@ -7,11 +7,10 @@ using UIKit;
 
 namespace Acr.UserDialogs
 {
-    public class ActionImpl : IAction
+    public class DialogAction : IDialogAction
     {
         UIAlertAction alertAction;
 
-        public DialogChoice Choice { get; set; } = DialogChoice.Positive;
         public string Label { get; set; }
 
 
@@ -31,7 +30,7 @@ namespace Acr.UserDialogs
         public Color? TextColor { get; set; }
         public Color? BackgroundColor { get; set; }
         public IBitmap Icon { get; set; }
-        public Action<IAction> Tap { get; set; }
+        public Action<IDialogAction> Tap { get; set; }
 
 
         public UIAlertAction Create()

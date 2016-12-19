@@ -96,7 +96,7 @@ namespace Acr.UserDialogs
 
         #region ActionSheets
 
-        public virtual IDisposable ActionSheet(ActionSheetConfig config)
+        public virtual IAlertDialog ActionSheet(ActionSheetConfig config)
         {
             var dlg = this.CreateDialog();
             //dlg.Positive = config.Positive;
@@ -131,7 +131,7 @@ namespace Acr.UserDialogs
 
         #region Alerts
 
-        public virtual IDisposable Alert(AlertConfig config)
+        public virtual IAlertDialog Alert(AlertConfig config)
         {
             var dlg = this.CreateDialog();
 
@@ -141,7 +141,7 @@ namespace Acr.UserDialogs
         }
 
 
-        public virtual IDisposable Alert(string message, string title, string okText, Action<DialogChoice> action)
+        public virtual IAlertDialog Alert(string message, string title, string okText, Action<DialogChoice> action)
         {
             //return this.Alert(new AlertConfig()
             //    .SetMessage(message)
@@ -182,13 +182,13 @@ namespace Acr.UserDialogs
 
         #region Confirm
 
-        public virtual IDisposable Confirm(ConfirmConfig config)
+        public virtual IAlertDialog Confirm(ConfirmConfig config)
         {
             return null;
         }
 
 
-        public virtual IDisposable Confirm(string message, Action<bool> onAction, string title, string okText, string cancelText)
+        public virtual IAlertDialog Confirm(string message, Action<bool> onAction, string title, string okText, string cancelText)
         {
             //return this.Alert(new AlertConfig()
             //    .SetTitle(title)
@@ -286,7 +286,7 @@ namespace Acr.UserDialogs
 
         #region Login
 
-        public virtual IDisposable Login(LoginConfig config)
+        public virtual IAlertDialog Login(LoginConfig config)
         {
             return null;
         }
@@ -321,7 +321,7 @@ namespace Acr.UserDialogs
 
         #region Prompt
 
-        public virtual IDisposable Prompt(PromptConfig config)
+        public virtual IAlertDialog Prompt(PromptConfig config)
         {
             return null;
         }

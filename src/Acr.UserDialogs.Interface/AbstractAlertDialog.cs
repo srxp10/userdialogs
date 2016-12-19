@@ -11,70 +11,57 @@ namespace Acr.UserDialogs
         protected AbstractAlertDialog()
         {
             this.TextEntries = new ReadOnlyCollection<ITextEntry>(this.InternalTextEntries);
-            this.Actions = new ReadOnlyCollection<IAction>(this.InternalActions);
+            this.Actions = new ReadOnlyCollection<IDialogAction>(this.InternalActions);
+        }
+
+
+        ~AbstractAlertDialog()
+        {
+            Dispose(false);
         }
 
 
         public abstract void Show();
         public abstract void Dismiss();
-        protected abstract IAction CreateAction();
-        protected abstract ITextEntry CreateTextEntry();
-
 
         protected List<ITextEntry> InternalTextEntries { get; } = new List<ITextEntry>();
-        protected List<IAction> InternalActions { get; } = new List<IAction>();
+        protected List<IDialogAction> InternalActions { get; } = new List<IDialogAction>();
 
 
         public string Message { get; set; }
         public string Title { get; set; }
         public bool IsCancellable { get; set; }
-        public IAction Positive { get; private set; }
-        public IAction Neutral { get; private set; }
-        public IAction Negative { get; private set; }
-        public Action Dismissed { get; set; }
-        public IReadOnlyList<IAction> Actions { get; }
+        public IDialogAction Positive { get; set; }
+        public IDialogAction Neutral { get; set; }
+        public IDialogAction Negative { get; set; }
+        public Action<IDialogAction> Dismissed { get; set; }
+        public IReadOnlyList<IDialogAction> Actions { get; }
         public IReadOnlyList<ITextEntry> TextEntries { get; }
 
 
-        public IAlertDialog SetMainAction(DialogChoice choice, Action<IAction> action)
+        public IAlertDialog Add(ITextEntry entry)
         {
-            var obj = this.CreateAction();
-            action(obj);
-
-            switch (choice)
-            {
-                case DialogChoice.Positive:
-                    this.Positive = obj;
-                    break;
-
-                case DialogChoice.Negative:
-                    this.Negative = obj;
-                    break;
-
-                case DialogChoice.Neutral:
-                    this.Neutral = obj;
-                    break;
-            }
+            this.InternalTextEntries.Add(entry);
             return this;
         }
 
 
-        public IAlertDialog AddTextBox(Action<ITextEntry> instance)
+        public IAlertDialog Add(IDialogAction action)
         {
-            var txt = this.CreateTextEntry();
-            instance(txt);
-            this.InternalTextEntries.Add(txt);
+            this.InternalActions.Add(action);
             return this;
         }
 
 
-        public IAlertDialog AddAction(Action<IAction> action)
+        public void Dispose()
         {
-            var obj = this.CreateAction();
-            action(obj);
-            this.InternalActions.Add(obj);
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-            return this;
+
+        protected virtual void Dispose(bool disposing)
+        {
         }
     }
 }
