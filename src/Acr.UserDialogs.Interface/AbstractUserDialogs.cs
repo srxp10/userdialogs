@@ -184,41 +184,75 @@ namespace Acr.UserDialogs
 
         public virtual IAlertDialog Confirm(ConfirmConfig config)
         {
-            return null;
+            var dlg = this.CreateDialog();
+            dlg.Title = config.Title;
+            dlg.Message = config.Message;
+            dlg.IsCancellable = config.IsCancellable;
+
+            dlg.Add(new DialogAction
+            {
+                Label = config.Positive.Label, // ?? ConfirmConfig.DefaultPositive.Label
+                Choice = DialogChoice.Positive,
+                Tap = x => config.OnAction(true)
+            });
+            if (config.Neutral != null)
+            {
+                dlg.Add(new DialogAction
+                {
+                    Label = config.Neutral.Label, // ?? ConfirmConfig.DefaultNeutral.Label
+                    Choice = DialogChoice.Neutral,
+                    Tap = x => config.OnAction(false)
+                });
+            }
+            dlg.Show();
+
+            return dlg;
         }
 
 
         public virtual IAlertDialog Confirm(string message, Action<bool> onAction, string title, string okText, string cancelText)
         {
-            //return this.Alert(new AlertConfig()
-            //    .SetTitle(title)
-            //    .SetMessage(message)
-            //    .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
-            //    .SetText(DialogChoice.Neutral, cancelText ?? AlertConfig.DefaultNeutral.Text)
-            //    .SetAction(x => onAction(x == DialogChoice.Positive))
-            // );
-            return null;
+            return this.Confirm(new ConfirmConfig
+            {
+                Title = title,
+                Message = message,
+                Positive = new DialogAction
+                {
+                    Label = okText,
+                    Tap = x => onAction(true)
+                },
+                Neutral = new DialogAction
+                {
+                    Label = cancelText,
+                    Tap = x => onAction(true)
+                }
+            });
         }
 
 
-        public virtual async Task<bool> ConfirmAsync(string message, string title, string okText, string cancelText, CancellationToken? cancelToken = null)
+        public virtual Task<bool> ConfirmAsync(string message, string title, string okText, string cancelText, CancellationToken? cancelToken = null)
         {
-            //var result = await this.AlertAsync(new AlertConfig()
-            //    .SetTitle(title)
-            //    .SetMessage(message)
-            //    .SetText(DialogChoice.Positive, okText ?? AlertConfig.DefaultPositive.Text)
-            //    .SetText(DialogChoice.Neutral, cancelText ?? AlertConfig.DefaultNeutral.Text),
-            //    cancelToken
-            //);
-
-            //return result == DialogChoice.Positive;
-            return false;
+            // TODO: assert onaction not set
+            var tcs = new TaskCompletionSource<bool>();
+            var dlg = this.Confirm(message, x => tcs.TrySetResult(x), title, okText, cancelText);
+            using (cancelToken?.Register(dlg.Dismiss))
+            {
+                return tcs.Task;
+            }
         }
 
 
-        public virtual async Task<bool> ConfirmAsync(ConfirmConfig config, CancellationToken? cancelToken)
+        public virtual Task<bool> ConfirmAsync(ConfirmConfig config, CancellationToken? cancelToken)
         {
-            return false;
+            // TODO: assert onaction not set
+            var tcs = new TaskCompletionSource<bool>();
+            config.OnAction = x => tcs.TrySetResult(x);
+            var dlg = this.Confirm(config);
+
+            using (cancelToken?.Register(() => Cancel(dlg, tcs)))
+            {
+                return tcs.Task;
+            }
         }
 
         #endregion
@@ -323,22 +357,42 @@ namespace Acr.UserDialogs
 
         public virtual IAlertDialog Prompt(PromptConfig config)
         {
-            return null;
+            var dlg = this.CreateDialog();
+            dlg.Title = config.Title;
+            dlg.Message = config.Message;
+            dlg.IsCancellable = config.IsCancellable;
+
+            dlg.Dismissed = () => { };
+
+            if (config.Positive != null)
+            {
+
+            }
+            if (config.Neutral != null)
+            {
+
+            }
+            if (config.Negative != null)
+            {
+
+            }
+            // TODO: 3 buttons
+            return dlg;
         }
 
 
-        public virtual async Task<DialogResult<string>> PromptAsync(PromptConfig config, CancellationToken? cancelToken = null)
+        public virtual Task<DialogResult<string>> PromptAsync(PromptConfig config, CancellationToken? cancelToken = null)
         {
             if (config.OnAction != null)
                 throw new ArgumentException(NO_ONACTION);
 
             var tcs = new TaskCompletionSource<DialogResult<string>>();
             config.OnAction = x => tcs.TrySetResult(x);
+            var dlg = this.Prompt(config);
 
-            var disp = this.Prompt(config);
-            using (cancelToken?.Register(() => Cancel(disp, tcs)))
+            using (cancelToken?.Register(() => Cancel(dlg, tcs)))
             {
-                return await tcs.Task;
+                return tcs.Task;
             }
         }
 

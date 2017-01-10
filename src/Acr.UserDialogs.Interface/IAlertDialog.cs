@@ -10,20 +10,21 @@ namespace Acr.UserDialogs
         string Title { get; set; }
         bool IsCancellable { get; set; }
 
-        IDialogAction Positive { get; set; }
-        IDialogAction Neutral { get; set; }
-        IDialogAction Negative { get; set; }
 
-        IReadOnlyList<IDialogAction> Actions { get; }
-        IReadOnlyList<ITextEntry> TextEntries { get; }
+        DialogAction Positive { get; set; }
+        DialogAction Neutral { get; set; }
+        DialogAction Negative { get; set; }
 
-        IAlertDialog Add(ITextEntry instance);
-        IAlertDialog Add(IDialogAction action);
+        IReadOnlyList<DialogAction> Actions { get; }
+        IReadOnlyList<TextEntry> TextEntries { get; }
+
+        IAlertDialog Add(TextEntry instance);
+        IAlertDialog Add(DialogAction action);
 
         void Show();
         void Dismiss();
 
         // TODO: what about outside cancel?
-        Action<IDialogAction> Dismissed { get; set; }
+        Action Dismissed { get; set; }
     }
 }

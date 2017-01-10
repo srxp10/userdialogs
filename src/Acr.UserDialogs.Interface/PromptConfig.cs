@@ -5,7 +5,7 @@ namespace Acr.UserDialogs
 {
     public class PromptConfig : AbstractDialogConfig
     {
-        public ITextEntry TextEntry { get; set; }
+        public TextEntry TextEntry { get; set; }
         public Action<DialogResult<string>> OnAction { get; set; }
 
         ///// <summary>

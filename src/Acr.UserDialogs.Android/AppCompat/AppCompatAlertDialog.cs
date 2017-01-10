@@ -1,51 +1,98 @@
 using System;
-using Acr.UserDialogs.Fragments;
-using Acr.UserDialogs.Internals;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Android.App;
-using Android.Support.V7.App;
-using AlertDialog = Android.Support.V7.App.AlertDialog;
+using Android.OS;
+
+//using Acr.UserDialogs.Fragments;
+//using Acr.UserDialogs.Internals;
+//using Android.App;
+//using Android.Support.V7.App;
+//using AlertDialog = Android.Support.V7.App.AlertDialog;
 
 
 namespace Acr.UserDialogs.AppCompat
 {
-    public class AppCompatAlertDialog : AbstractDroidAlertDialog
+    public class AppCompatAlertDialog : DialogFragment, IAlertDialog
     {
         public const string FragmentTag = "acr";
+
+        readonly Activity activity;
+        readonly IEditTextBuilder editTextBuilder;
+        readonly IList<TextEntry> textEntries;
+        readonly IList<DialogAction> actions;
+
         AlertDialog.Builder builder;
         AlertDialog dialog;
 
 
-        public AppCompatAlertDialog(Activity activity) : base(activity)
+        public AppCompatAlertDialog(Activity activity, IEditTextBuilder editTextBuilder)
         {
+            this.activity = activity;
+            this.editTextBuilder = editTextBuilder;
+
+            this.textEntries = new List<TextEntry>();
+            this.TextEntries = new ReadOnlyCollection<TextEntry>(this.textEntries);
+
+            this.actions = new List<DialogAction>();
+            this.Actions = new ReadOnlyCollection<DialogAction>(this.actions);
         }
 
 
-        public override void Show()
+        public override Dialog OnCreateDialog(Bundle bundle)
         {
-            // TODO: this has to be on the main thread
-            this.builder = new AlertDialog.Builder(this.Activity);
+            return base.OnCreateDialog(bundle);
         }
 
 
-        public override void Dismiss()
+        public override void OnDetach()
         {
+            base.OnDetach();
         }
 
 
-        protected virtual IDisposable ShowDialog<TFragment, TConfig>(AppCompatActivity activity, TConfig config) where TFragment : AbstractAppCompatDialogFragment<TConfig> where TConfig : class, new()
+        //public override void Dismiss()
+        //{
+        //     this.Activity.RunOnUiThread(frag.Dismiss);
+        //}
+
+        public string Message { get; set; }
+        public string Title { get; set; }
+        public bool IsCancellable { get; set; }
+        public DialogAction Positive { get; set; }
+        public DialogAction Neutral { get; set; }
+        public DialogAction Negative { get; set; }
+        public IReadOnlyList<DialogAction> Actions { get; }
+        public IReadOnlyList<TextEntry> TextEntries { get; }
+
+
+        public IAlertDialog Add(TextEntry instance)
         {
-            var frag = (TFragment)Activator.CreateInstance(typeof(TFragment));
-            activity.RunOnUiThread(() =>
+            var editText = this.editTextBuilder.Create(this.activity, instance);
+            return this;
+        }
+
+
+        public IAlertDialog Add(DialogAction action)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void Show()
+        {
+            this.builder = new AlertDialog.Builder(this.activity);
+            this.activity.RunOnUiThread(() =>
             {
-                frag.Config = config;
-                frag.Show(activity.SupportFragmentManager, FragmentTag);
+                //frag.Config = config;
+                //this.Show(this.activity.SupportFragmentManager, FragmentTag);
             });
-            return new DisposableAction(() =>
-                activity.RunOnUiThread(frag.Dismiss)
-            );
         }
+
+        public Action Dismissed { get; set; }
     }
 }
+
 
 /*
  // ALERT

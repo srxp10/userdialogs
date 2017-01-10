@@ -42,14 +42,15 @@
     <Compile Include="AbstractUserDialogs.cs" />
     <Compile Include="ActionSheetConfig.cs" />
     <Compile Include="AlertConfig.cs" />
+    <Compile Include="AbstractNpc.cs" />
     <Compile Include="ConfirmConfig.cs" />
     <Compile Include="Credentials.cs" />
     <Compile Include="DialogChoice.cs" />
     <Compile Include="DialogResult.cs" />
     <Compile Include="IAlertDialog.cs" />
-    <Compile Include="IDialogAction.cs" />
+    <Compile Include="DialogAction.cs" />
     <Compile Include="IDialogConfig.cs" />
-    <Compile Include="ITextEntry.cs" />
+    <Compile Include="TextEntry.cs" />
     <Compile Include="PromptTextChangedArgs.cs" />
     <Compile Include="TimePromptConfig.cs" />
     <Compile Include="DatePromptConfig.cs" />

@@ -25,7 +25,6 @@ Supported Platforms
 - Android
 - Universal Windows Platform (Win10/UWP)
 - Portable Class Libraries (Profile 259)
-- WP8/81 is here but UNSUPPORTED!
         </description>
         <authors>Allan Ritchie</authors>
         <owners>Allan Ritchie</owners>
@@ -59,6 +58,7 @@ Supported Platforms
         <releaseNotes>
 7.0.0
 This release does contain breaking changes!
+[feature] don't like the prompt/login/alerts now, create your own, add as many text entries as you want
 [feature] STYLING!!
 [feature] Ok/Cancel is gone, welcome Postive, Neutral, and Negative buttons for alert, login, and prompt
 [breaking] Confirm is now just a wrapper signature around alert

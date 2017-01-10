@@ -10,8 +10,8 @@ namespace Acr.UserDialogs
     {
         protected AbstractAlertDialog()
         {
-            this.TextEntries = new ReadOnlyCollection<ITextEntry>(this.InternalTextEntries);
-            this.Actions = new ReadOnlyCollection<IDialogAction>(this.InternalActions);
+            this.TextEntries = new ReadOnlyCollection<TextEntry>(this.InternalTextEntries);
+            this.Actions = new ReadOnlyCollection<DialogAction>(this.InternalActions);
         }
 
 
@@ -24,29 +24,29 @@ namespace Acr.UserDialogs
         public abstract void Show();
         public abstract void Dismiss();
 
-        protected List<ITextEntry> InternalTextEntries { get; } = new List<ITextEntry>();
-        protected List<IDialogAction> InternalActions { get; } = new List<IDialogAction>();
+        protected List<TextEntry> InternalTextEntries { get; } = new List<TextEntry>();
+        protected List<DialogAction> InternalActions { get; } = new List<DialogAction>();
 
 
         public string Message { get; set; }
         public string Title { get; set; }
         public bool IsCancellable { get; set; }
-        public IDialogAction Positive { get; set; }
-        public IDialogAction Neutral { get; set; }
-        public IDialogAction Negative { get; set; }
-        public Action<IDialogAction> Dismissed { get; set; }
-        public IReadOnlyList<IDialogAction> Actions { get; }
-        public IReadOnlyList<ITextEntry> TextEntries { get; }
+        public DialogAction Positive { get; set; }
+        public DialogAction Neutral { get; set; }
+        public DialogAction Negative { get; set; }
+        public Action Dismissed { get; set; }
+        public IReadOnlyList<DialogAction> Actions { get; }
+        public IReadOnlyList<TextEntry> TextEntries { get; }
 
 
-        public IAlertDialog Add(ITextEntry entry)
+        public IAlertDialog Add(TextEntry entry)
         {
             this.InternalTextEntries.Add(entry);
             return this;
         }
 
 
-        public IAlertDialog Add(IDialogAction action)
+        public IAlertDialog Add(DialogAction action)
         {
             this.InternalActions.Add(action);
             return this;

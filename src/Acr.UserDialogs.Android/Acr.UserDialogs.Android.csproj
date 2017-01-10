@@ -80,27 +80,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppCompat\AcrDialogFragment.cs" />
     <Compile Include="AppCompat\AppCompatToast.cs" />
     <Compile Include="Classic\ClassicToast.cs" />
-    <Compile Include="Internals\AbstractDroidAlertDialog.cs" />
-    <Compile Include="DialogAction.cs" />
+    <Compile Include="EditTextBuilder.cs" />
+    <Compile Include="IEditTextBuilder.cs" />
     <Compile Include="Internals\ActionSheetListAdapter.cs" />
     <Compile Include="AppCompat\AppCompatAlertDialog.cs" />
     <Compile Include="Builders\TimePromptBuilder.cs" />
     <Compile Include="Builders\DatePromptBuilder.cs" />
     <Compile Include="Classic\ClassicAlertDialog.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Fragments\AbstractDialogFragment.cs" />
-    <Compile Include="Fragments\ActionSheetDialogFragment.cs" />
-    <Compile Include="Fragments\AlertDialogFragment.cs" />
     <Compile Include="Fragments\BottomSheetDialogFragment.cs" />
-    <Compile Include="Fragments\ConfirmDialogFragment.cs" />
     <Compile Include="Fragments\LoadingFragment.cs" />
     <Compile Include="Fragments\TimeDialogFragment.cs" />
     <Compile Include="Fragments\DateDialogFragment.cs" />
-    <Compile Include="Fragments\ConfigStore.cs" />
-    <Compile Include="Fragments\LoginDialogFragment.cs" />
-    <Compile Include="Fragments\PromptDialogFragment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProgressDialog.cs" />
     <Compile Include="TextEntry.cs" />
