@@ -41,6 +41,7 @@ Supported Platforms
             </group>
             <group targetFramework="Xamarin.iOS10">
                 <dependency id="BTProgressHUD" version="[1.2.0.3, 2)" />
+                <dependency id="MaterialControls" version="[1.2.2, 2)" />
                 <dependency id="Splat" version="[1.6.2, 2.0)" />
                 <dependency id="Acr.Support" version="[2.1.0, 3.0)" />
             </group>
@@ -61,6 +62,7 @@ This release does contain breaking changes!
 [feature] don't like the prompt/login/alerts now, create your own, add as many text entries as you want
 [feature] STYLING!!
 [feature] Ok/Cancel is gone, welcome Postive, Neutral, and Negative buttons for alert, login, and prompt
+[feature][ios] calendar, toasts, and snackbars now use material controls
 [breaking] Confirm is now just a wrapper signature around alert
 [fix][droid] ActionSheetAsync is fixed for dismiss
 

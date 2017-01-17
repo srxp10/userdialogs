@@ -3,6 +3,8 @@ using UIKit;
 using CoreGraphics;
 using Acr.Support.iOS;
 using BigTed;
+using Foundation;
+using MaterialControls;
 using Splat;
 
 
@@ -23,6 +25,11 @@ namespace Acr.UserDialogs
             this.viewControllerFunc = viewControllerFunc;
         }
 
+
+        public override IAlertDialog CreateDialog()
+        {
+            return new AlertDialogImpl(this.viewControllerFunc);
+        }
 
         //public override IDisposable Alert(AlertConfig config)
         //{
@@ -54,41 +61,46 @@ namespace Acr.UserDialogs
 
         public override IDisposable DatePrompt(DatePromptConfig config)
         {
-            var picker = new AI.AIDatePickerController
+            var picker = new MDDatePickerDialog
             {
-                Mode = UIDatePickerMode.Date,
-                SelectedDateTime = config.SelectedDate ?? DateTime.Now,
-                // TODO
-                //OkText = config.OkText,
-                //CancelText = config.CancelText,
-                Ok = x => config.OnAction?.Invoke(new DialogResult<DateTime>(DialogChoice.Positive, x.SelectedDateTime)),
-                Cancel = x => config.OnAction?.Invoke(new DialogResult<DateTime>(DialogChoice.Neutral , x.SelectedDateTime)),
+                //Mode = UIDatePickerMode.Date,
+                //SelectedDateTime = config.SelectedDate ?? DateTime.Now,
+                //// TODO
+                ////OkText = config.OkText,
+                ////CancelText = config.CancelText,
+                //Ok = x => config.OnAction?.Invoke(new DialogResult<DateTime>(DialogChoice.Positive, x.SelectedDateTime)),
+                //Cancel = x => config.OnAction?.Invoke(new DialogResult<DateTime>(DialogChoice.Neutral , x.SelectedDateTime)),
             };
-            if (config.MaximumDate != null)
-                picker.MaximumDateTime = config.MaximumDate;
+            picker.SetTitle(config.Title, UIControlState.Normal);
+            //if (config.MaximumDate != null)
+            //    picker.MaximumDateTime = config.MaximumDate;
 
-            if (config.MinimumDate != null)
-                picker.MinimumDateTime = config.MinimumDate;
-
-            return this.Present(picker);
+            //if (config.MinimumDate != null)
+            //    picker.MinimumDateTime = config.MinimumDate;
+            //picker.BackgroundColor
+            picker.Show();
+            //return this.Present(picker);
+            return null;
         }
 
 
         public override IDisposable TimePrompt(TimePromptConfig config)
         {
-            var picker = new AI.AIDatePickerController
-            {
-                Mode = UIDatePickerMode.Time,
-				SelectedDateTime = config.SelectedTime != null ? DateTime.Today.Add ((TimeSpan)config.SelectedTime) : DateTime.Now,
-                MinuteInterval = config.MinuteInterval,
-                // TODO
-                //OkText = config.OkText,
-                //CancelText = config.CancelText,
-                Ok = x => config.OnAction?.Invoke(new DialogResult<TimeSpan>(DialogChoice.Positive, x.SelectedDateTime.TimeOfDay)),
-                Cancel = x => config.OnAction?.Invoke(new DialogResult<TimeSpan>(DialogChoice.Neutral, x.SelectedDateTime.TimeOfDay)),
-                Use24HourClock = config.Use24HourClock
-            };
-            return this.Present(picker);
+    //        var picker = new AI.AIDatePickerController
+    //        {
+    //            Mode = UIDatePickerMode.Time,
+				//SelectedDateTime = config.SelectedTime != null ? DateTime.Today.Add ((TimeSpan)config.SelectedTime) : DateTime.Now,
+    //            MinuteInterval = config.MinuteInterval,
+    //            // TODO
+    //            //OkText = config.OkText,
+    //            //CancelText = config.CancelText,
+    //            Ok = x => config.OnAction?.Invoke(new DialogResult<TimeSpan>(DialogChoice.Positive, x.SelectedDateTime.TimeOfDay)),
+    //            Cancel = x => config.OnAction?.Invoke(new DialogResult<TimeSpan>(DialogChoice.Neutral, x.SelectedDateTime.TimeOfDay)),
+    //            Use24HourClock = config.Use24HourClock
+    //        };
+    //        return this.Present(picker);
+            var picker = new MDTimePickerDialog(0, 0);
+            return null;
         }
 
 
@@ -326,6 +338,7 @@ namespace Acr.UserDialogs
                 catch { }
             });
         }
+
 
         #endregion
     }

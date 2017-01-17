@@ -57,7 +57,12 @@ namespace Acr.UserDialogs
         }
 
 
-        Action<TextEntry> TextChanged { get; set; }
+        bool isEnabled;
+        public bool IsEnabled
+        {
+            get { return this.isEnabled; }
+            set { this.SetProperty(ref this.isEnabled, value); }
+        }
 
         // TODO: border color
         // TODO: may want all dialogs

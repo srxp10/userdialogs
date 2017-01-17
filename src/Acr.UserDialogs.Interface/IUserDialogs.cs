@@ -23,12 +23,10 @@ namespace Acr.UserDialogs
         Task<bool> ConfirmAsync(string message, string title = null, string okText = null, string cancelText = null, CancellationToken? cancelToken = null);
         Task<bool> ConfirmAsync(ConfirmConfig config, CancellationToken? cancelToken = null);
 
-        // TODO: date prompt disposable
         IDisposable DatePrompt(DatePromptConfig config);
         Task<DialogResult<DateTime>> DatePromptAsync(DatePromptConfig config, CancellationToken? cancelToken = null);
         Task<DialogResult<DateTime>> DatePromptAsync(string title = null, DateTime? selectedDate = null, CancellationToken? cancelToken = null);
 
-        // TODO: time prompt disposable
         IDisposable TimePrompt(TimePromptConfig config);
         Task<DialogResult<TimeSpan>> TimePromptAsync(TimePromptConfig config, CancellationToken? cancelToken = null);
         Task<DialogResult<TimeSpan>> TimePromptAsync(string title = null, TimeSpan? selectedTime = null, CancellationToken? cancelToken = null);
@@ -44,10 +42,12 @@ namespace Acr.UserDialogs
         IProgressDialog Progress(ProgressDialogConfig config);
         IProgressDialog Loading(string title = null, Action onCancel = null, string cancelText = null, bool show = true, MaskType? maskType = null);
         IProgressDialog Progress(string title = null, Action onCancel = null, string cancelText = null, bool show = true, MaskType? maskType = null);
-        void ShowLoading(string title = null, MaskType? maskType = null);
-        void HideLoading();
+
 
         void ShowImage(IBitmap image, string message, int timeoutMillis = 2000);
+
+        //IDisposable Snackbar(string title, TimeSpan? dismissTimer = null);
+        //IDisposable Snackbar(ToastConfig config);
 
         IDisposable Toast(string title, TimeSpan? dismissTimer = null);
         IDisposable Toast(ToastConfig cfg);

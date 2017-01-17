@@ -238,25 +238,6 @@ namespace Acr.UserDialogs
         }
 
 
-        public override void ShowError(string message, int timeoutMillis)
-        {
-            this.Toast(new ToastConfig(message)
-                .SetDuration(TimeSpan.FromMilliseconds(timeoutMillis))
-                .SetBackgroundColor(Color.Red)
-            );
-        }
-
-
-        public override void ShowSuccess(string message, int timeoutMillis)
-        {
-            this.Toast(new ToastConfig(message)
-                .SetDuration(TimeSpan.FromMilliseconds(timeoutMillis))
-                .SetBackgroundColor(Color.LawnGreen)
-                .SetMessageTextColor(Color.Black)
-            );
-        }
-
-
         public override IDisposable Toast(ToastConfig config)
         {
             ToastPrompt toast = null;
@@ -348,7 +329,7 @@ namespace Acr.UserDialogs
         }
 
 
-        protected virtual void SetDefaultPrompt(ContentDialog dialog, StackPanel stack, PromptConfig config)
+        protected virtual void  SetDefaultPrompt(ContentDialog dialog, StackPanel stack, PromptConfig config)
         {
             var txt = new TextBox
             {
