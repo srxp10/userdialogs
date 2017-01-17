@@ -9,6 +9,17 @@ namespace Acr.UserDialogs
     {
         readonly ProgressPopUp progress = new ProgressPopUp();
 
+        public ProgressDialog()
+        {
+            
+        }
+
+        public ProgressDialog(ProgressDialogConfig cfg)
+        {
+            Title = cfg.Title;
+            IsDeterministic = cfg.IsDeterministic;
+        }
+
         #region IProgressDialog Members
 
         public MaskType MaskType { get; set; }
